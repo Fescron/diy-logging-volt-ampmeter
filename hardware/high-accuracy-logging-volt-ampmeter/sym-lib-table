@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name BrechtVE_Aesthetics)(type Legacy)(uri ${KIPRJMOD}/Libraries/BrechtVE_Aesthetics.lib)(options "")(descr ""))
+  (lib (name SparkFun-PowerSymbols)(type Legacy)(uri ${KIPRJMOD}/Libraries/SparkFun-PowerSymbols.lib)(options "")(descr ""))
+  (lib (name high-accuracy-logging-volt-ampmeter)(type Legacy)(uri ${KIPRJMOD}/Libraries/high-accuracy-logging-volt-ampmeter.lib)(options "")(descr ""))
+)

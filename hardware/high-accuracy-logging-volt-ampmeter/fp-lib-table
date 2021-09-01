@@ -1,0 +1,5 @@
+(fp_lib_table
+  (lib (name BrechtVE_Aesthetics)(type KiCad)(uri ${KIPRJMOD}/Footprints/BrechtVE_Aesthetics.pretty)(options "")(descr ""))
+  (lib (name SparkfunConnectors)(type KiCad)(uri ${KIPRJMOD}/Footprints/SparkfunConnectors.pretty)(options "")(descr ""))
+  (lib (name high-accuracy-logging-volt-ampmeter)(type KiCad)(uri ${KIPRJMOD}/Libraries/high-accuracy-logging-volt-ampmeter.pretty)(options "")(descr ""))
+)
