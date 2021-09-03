@@ -15,8 +15,8 @@
 
 | Quick access links | |
 |------|-----|
-| [Carrier board v1.0 schematic (PDF)](hardware/high-accuracy-logging-volt-ampmeter/high-accuracy-logging-volt-ampmeter.pdf) | [Doxygen code documentation of individual files and methods](firmware/docs/files.html) |
-| [Wiring diagram v1.0 (PDF)](hardware/wiring-diagram_diy-logging-volt-ampmeter/wiring-diagram_diy-logging-volt-ampmeter.pdf) | [Doxygen TODO's](firmware/docs/todo.html) |
+| [Carrier board v1.0 schematic (PDF)](hardware/high-accuracy-logging-volt-ampmeter/high-accuracy-logging-volt-ampmeter.pdf) | [Doxygen code documentation of individual files and methods](https://fescron.github.io/diy-logging-volt-ampmeter/files.html) |
+| [Wiring diagram v1.0 (PDF)](hardware/wiring-diagram_diy-logging-volt-ampmeter/wiring-diagram_diy-logging-volt-ampmeter.pdf) | [Doxygen TODO's](https://fescron.github.io/diy-logging-volt-ampmeter/todo.html) |
 
 
 <br/>
@@ -105,4 +105,4 @@ Unfortunately a wrong MOSFET was used for the function to power the external Ope
 
 The firmware is constructed with a lot of extra variables to facilitate the functionality to only update changed values on the displays. This speeds up the code but does however create a lot of *overhead*. In the future this can certainly be optimized.
 
-As of yet not all of the hardware is used, like for example the relay and buzzer. All TODO's can be found in the [Doxygen TODO's](firmware/docs/todo.html).
+As of yet not all of the hardware is used, like for example the relay and buzzer. All TODO's can be found in the [Doxygen TODO's](https://fescron.github.io/diy-logging-volt-ampmeter/todo.html).
