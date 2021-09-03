@@ -12,7 +12,6 @@
 <img src="documentation/img/logger.png" alt="DIY Logging Volt/Ampmeter">
 
 <br/>
-<br/>
 
 | Quick access links | |
 |------|-----|
@@ -22,7 +21,7 @@
 
 <br/>
 
-This battery-powered logging volt/ampmeter was made with the intention to easily get `.CSV` files filled with voltage/current/power measurements on a SD-card to plot and use this data further. It is supposed to have the same functionality as much more expensive dataloggers, with the added benifit of the ability to change the firmware to add more functions.
+This battery-powered logging volt/ampmeter was made with the intention to easily get `.CSV` files filled with voltage/current/power measurements on a SD-card to plot and use this data further. It is supposed to have the same functionality as much more expensive dataloggers, with the added benefit of the ability to change the firmware to add more functions.
 
 <br/>
 
@@ -41,7 +40,6 @@ This battery-powered logging volt/ampmeter was made with the intention to easily
 
 <img src="documentation/img/logger-inside.png" alt="DIY Logging Volt/Ampmeter">
 
-<br/>
 <br/>
 
 The device consists of **two Chinese** (but very accurate and highly functional) **meters** ([BY56W 50V](https://aliexpress.com/item/32840631947.html) and [BY56W 5A](https://aliexpress.com/item/32839044728.html)) with independent power-supplies so no *common-mode* errors can occur. They can be individually powered on or off with **toggle switches** left of these meters. On the right of them are **combination banana- and screw-terminals** to easily connect measurement cables. The black and red one are the negative and positive terminal of the voltmeter, the blue and yellow one are the negative and positive terminal of the current meter. In series with the latter plugs and the current meter are a **5A 5x10mm fuse** (fitted in a holder on right right side of the logger), along with an **5V internal NC-relay** (with a [5V boostconverter](https://aliexpress.com/item/32891706812.html) and protection-diode) to open the current connection in certain scenarios (over-voltage, over-current, under-voltage, ...). Currently no code is written to use this relay functionality.
@@ -66,22 +64,16 @@ The **up/down monostable toggle-switch** and **pressable rotary encoder** on the
 
 The **left display** always indicates the power on the top. If the display is selected (*selection-line* drawn on the bottom of the display) the rotary encoder can be used to switch between the different pages to display additional information: max/min voltage, max/min current and calculated capacity in Ah and Wh. Upon an encoder-press the displayed information can be reset (if the logger is not saving data to a SD-card). Below these three available pages on the left display are depicted.
 
-<img src="documentation/img/disp-left-volt.png" alt="Left display selected, max/min volt" height="140">
-<img src="documentation/img/disp-left-amp.png" alt="Left display selected, max/min amp" height="140">
-<img src="documentation/img/disp-left-cap.png" alt="Left display selected, capacity" height="140">
+<img src="documentation/img/disp-left-volt.png" alt="Left display selected, max/min volt" height="140"><img src="documentation/img/disp-left-amp.png" alt="Left display selected, max/min amp" height="140"><img src="documentation/img/disp-left-cap.png" alt="Left display selected, capacity" height="140">
 
-<br/>
 <br/>
 
 A down-press on the monostable toggle-switch changes the selected display. The *selection-line* on the bottom of the display will be moved to the newly selected display.
 
 The **right display** always indicates the internal battery voltage and state of the logger (`STOP/START/RUN/SAVE`) on the top. If this display is selected (*selection-line* drawn on the bottom of the display) the rotary encoder can again be used to switch between the different pages to display additional information. The first page displays the current date and time, and pressing the encoder enables the user to change this information. Values are changed by rotating the encoder, the value (for example the day) is saved on an encoder-press, and the next item (for example the month) can now be edited. The second page displays the period between measurements saved to the logfile with the external logger. Pressing the encoder activates the ability to change the period by rotating the encoder, pressing it again saves the value. The third page displays the runtime if the logger is saving data to the external logger. Below these three available pages on the right display are depicted.
 
-<img src="documentation/img/disp-right-time.png" alt="Right display selected, date/time" height="140">
-<img src="documentation/img/disp-right-period.png" alt="Right display selected, measurement period" height="140">
-<img src="documentation/img/disp-right-runtime.png" alt="Right display selected, runtime" height="140">
+<img src="documentation/img/disp-right-time.png" alt="Right display selected, date/time" height="140"><img src="documentation/img/disp-right-period.png" alt="Right display selected, measurement period" height="140"><img src="documentation/img/disp-right-runtime.png" alt="Right display selected, runtime" height="140">
 
-<br/>
 <br/>
 
 An up-press on the monostable toggle switch (if the logger is in `STOP`-mode) powers-up the external logger (`START`) and writes the *header*, along with a first measurement-line to the `.TXT` file (`SAVE`). Then the logger waits (`RUN`) until the measurement-period runs out and writes another measurement to the file (`SAVE`). Another up-press on the monostable toggle switch stops the logging and writes two more lines to the end of the file including data as the date, total runtime, capacity, max/min values, ... An example of the resulting data in such a `.TXT` file is depicted below.
