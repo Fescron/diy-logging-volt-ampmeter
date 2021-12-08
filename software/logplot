@@ -15,11 +15,10 @@
 # Version of this script (date)
 VERSION="08/12/2021"
 
-# TODO add arguments to set xrange with minutes/hours?
 # TODO add argument to change some axes to logaritmic ones ( set logscale (x|y|y2) )
+# TODO add arguments to set xrange with minutes/hours?
 # TODO add arguments to add labels/arrows
 # TODO add argument to select time plotting ( -time )
-# TODO add argument to disable runtime/date ( -nr -nd) => remove disable all text thing? Or check if nothing is selected and then don't execute the code?
 # TODO add argument to plot in a window/to a PNG instead of to a PDF
 # TODO add argument to enable boxes with values on the lines
 # TODO add arguments to plot power vs ... (or use multiplot?)
@@ -49,8 +48,9 @@ do
 		echo " -f <inputfile> : Set input-file"
 		echo " -t <title>     : Set graph title"
 		echo " -st <subtitle> : Set graph subtitle"
-		echo " -nt            : Disable all text above graph (no text)"
-		echo " -at            : Print capacity and max/min voltage/current values above graph (all text)"
+		echo " -nd            : Disable date above graph (no date)"
+		echo " -nr            : Disable runtime above graph (no runtime)"
+		echo " -av            : Print capacity and max/min voltage/current values above graph (all values)"
 		echo " -c             : Print capacity values above graph"
 		echo " -mv            : Print max/min voltage values above graph"
 		echo " -mc            : Print max/min current values above graph"
@@ -75,9 +75,11 @@ do
 	elif [[ ${!i} == '-st' ]]; then   # Set subtitle
 		j=$((i+1))
 		SUBTITLE="${!j}"
-	elif [[ ${!i} == '-nt' ]]; then   # Disable all text above graph
-		NOTITLE='1'
-	elif [[ ${!i} == '-at' ]]; then   # Print capacity and max/min voltage/current values above graph
+	elif [[ ${!i} == '-nd' ]]; then   # Disable date above graph
+		NODATE='1'
+	elif [[ ${!i} == '-nr' ]]; then   # Disable runtime above graph
+		NORUNTIME='1'
+	elif [[ ${!i} == '-av' ]]; then   # Print capacity and max/min voltage/current values above graph
 		CAPACITY='1'
 		MAXMINVOLT='1'
 		MAXMINCURR='1'
@@ -146,36 +148,75 @@ done
 # Don't execute other code if "help" is called
 if [[ $CONTINUE != '0' ]]; then
 	
-	# Add title-text if necessary
-	if [[ $NOTITLE != '1' ]]; then
+	# gnuplot enhanced text mode: "{/=12 TEXT}\n": Changes the font size of each line (but not of new line character) to increase space between lines
+	#                             "{/:Bold TEXT}": Puts text in bold
+
+	# Add a title if one was given
+	if [[ -n "$TITLE" ]]; then PLOTTITLE+="{/:Bold {/=12 $TITLE}}"; fi
+
+	# Add a subtitle if one was given
+	if [[ -n "$SUBTITLE" ]]; then 
+	
+		if [[ -n "$TITLE" ]]; then PLOTTITLE+="\n"; fi # Add a newline if necessary
+		
+		PLOTTITLE+="{/=12 $SUBTITLE}"
+	fi
+	
+	# Add info to title-text from the last line of the input-file if necessary
+	if [[ $NODATE != '1' || $NORUNTIME != '1' || $CAPACITY == '1' || $MAXMINVOLT == '1' || $MAXMINCURR == '1' ]]; then
 	
 		OLDIFS=$IFS
 		IFS=','
 		
-		# Gather the data to put in the title from the last line of the file (quote marks so spaces can exist in the filepath)
+		# Gather the data to put in the title from the last line of the input-file (quote marks so spaces can exist in the filepath)
 		[ ! -f "$FILE" ] && { echo "$FILE file not found"; exit 99; }
 		while read date runtime capAh capWh vMax vMin aMax aMin
 		do
-			# Enhanced text mode: "{/=12 TEXT}\n": Changes the font size of each line (but not of new line character) to increase space between lines
-			#                     "{/:Bold TEXT}": Puts text in bold
 
-			# Add a title if one was given
-			if [[ -n "$TITLE" ]]; then PLOTTITLE+="{/:Bold {/=12 $TITLE}}\n"; fi
-
-			# Add a subtitle if one was given
-			if [[ -n "$SUBTITLE" ]]; then PLOTTITLE+="{/=12 $SUBTITLE}\n"; fi
-
-			PLOTTITLE+="{/=12 $date}\n\n"
-			PLOTTITLE+="{/=12 Runtime [hh:mm:ss]: $runtime}"
+			# Add date to title if required
+			if [[ $NODATE != '1' ]]; then 
+				
+				if [[ -n "$TITLE" || -n "$SUBTITLE" ]]; then PLOTTITLE+="\n"; fi # Add a newline if necessary
+			
+				PLOTTITLE+="{/=12 $date}"
+			fi
+			
+			# Add runtime to title if required
+			if [[ $NORUNTIME != '1' ]]; then
+			
+				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATE != '1' ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
+			
+				PLOTTITLE+="{/=12 Runtime [hh:mm:ss]: $runtime}"
+			fi
 
 			# Add capacity to title if required
-			if [[ $CAPACITY == '1' ]]; then PLOTTITLE+="\n{/=12 Capacity [Ah]: $capAh - Capacity [Wh]: $capWh}"; fi
+			if [[ $CAPACITY == '1' ]]; then
+			
+				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATE != '1' ]] && [[ $NORUNTIME == '1' ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
+				
+				if [[ $NORUNTIME != '1' ]]; then PLOTTITLE+="\n"; fi # Add a newline if necessary
+				
+				PLOTTITLE+="{/=12 Capacity [Ah]: $capAh - Capacity [Wh]: $capWh}"
+			fi
 
 			# Add min/max voltage values to title if required
-			if [[ $MAXMINVOLT == '1' ]]; then PLOTTITLE+="\n{/=12 Max Volt [V]: $vMax - Min Volt [V]: $vMin}"; fi
+			if [[ $MAXMINVOLT == '1' ]]; then
+			
+				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATE != '1' ]] && [[ $NORUNTIME == '1' && $CAPACITY != '1' ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
+				
+				if [[ $NORUNTIME != '1' || $CAPACITY == '1' ]]; then PLOTTITLE+="\n"; fi # Add a newline if necessary
+				
+				PLOTTITLE+="{/=12 Max Volt [V]: $vMax - Min Volt [V]: $vMin}"
+			fi
 			
 			# Add min/max current values to title if required
-			if [[ $MAXMINCURR == '1' ]]; then PLOTTITLE+="\n{/=12 Max Curr [A]: $aMax - Min Curr [A]: $aMin}"; fi
+			if [[ $MAXMINCURR == '1' ]]; then
+				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATE != '1' ]] && [[ $NORUNTIME == '1' && $CAPACITY != '1' && $MAXMINVOLT != '1'  ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
+				
+				if [[ $NORUNTIME != '1' || $CAPACITY == '1' || $MAXMINVOLT == '1' ]]; then PLOTTITLE+="\n"; fi # Add a newline if necessary
+				
+				PLOTTITLE+="{/=12 Max Curr [A]: $aMax - Min Curr [A]: $aMin}"
+			fi
 
 		# Read the last line of the file (-n = quiet mode) and pass the output as a file to the while loop using process substitution ("<(...)") (quote marks so spaces can exist in the filepath)
 		done < <(tail -n -1 "$FILE")
