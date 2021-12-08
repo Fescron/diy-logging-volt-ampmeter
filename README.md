@@ -98,7 +98,7 @@ Date [day/month/year],Runtime [hour:min:sec],Capacity [Ah],Capacity [Wh],Max Vol
 To easily convert the `.txt`/`.csv` files from this meter and get **plots in PDF-form**, a bash-script using `gnuplot` and `ps2pdf`/`imagemagick` was created. To create a PDF-plot of a file (`LOG00110.TXT`) with the title "Title" and subtitle "Subtitle", and to make sure the capacity and max/min voltage and current values are displayed above the graph, one can use the following command:
 
 ```bash
-logplot -f "LOG00110.TXT" -t "Title" -st "Subtitle" -at
+logplot -f "LOG00110.TXT" -t "Title" -st "Subtitle" -av
 ```
 
 <br/>
