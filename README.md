@@ -18,7 +18,6 @@
 | [Carrier board v1.0 schematic (PDF)](hardware/high-accuracy-logging-volt-ampmeter/high-accuracy-logging-volt-ampmeter.pdf) | [Doxygen code documentation of individual files and methods](https://fescron.github.io/diy-logging-volt-ampmeter/files.html) |
 | [Wiring diagram v1.0 (PDF)](hardware/wiring-diagram_diy-logging-volt-ampmeter/wiring-diagram_diy-logging-volt-ampmeter.pdf) | [Doxygen TODO's](https://fescron.github.io/diy-logging-volt-ampmeter/todo.html) |
 
-
 <br/>
 
 This battery-powered logging volt/ampmeter was made with the intention to easily get `.CSV` files filled with voltage/current/power measurements on a SD-card to plot and use this data further. It is supposed to have the same functionality as much more expensive dataloggers, with the added benefit of the ability to change the firmware to add more functions.
@@ -31,8 +30,9 @@ This battery-powered logging volt/ampmeter was made with the intention to easily
   - [0 - Table of Contents](#0---table-of-contents)
   - [1 - Construction](#1---construction)
   - [2 - Usage](#2---usage)
-  - [3 - Additional hardware changes (carrier board v1.0)](#3---additional-hardware-changes-carrier-board-v10)
-  - [4 - Future code-additions](#4---future-code-additions)
+  - [3 - Bash script to generate plots (logplot)](#3---bash-script-to-generate-plots-logplot)
+  - [4 - Additional hardware changes (carrier board v1.0)](#4---additional-hardware-changes-carrier-board-v10)
+  - [5 - Future code-additions](#5---future-code-additions)
 
 <br/>
 
@@ -93,7 +93,23 @@ Date [day/month/year],Runtime [hour:min:sec],Capacity [Ah],Capacity [Wh],Max Vol
 
 <br/>
 
-## 3 - Additional hardware changes (carrier board v1.0)
+## 3 - Bash script to generate plots (logplot)
+
+To easily convert the `.txt`/`.csv` files from this meter and get **plots in PDF-form**, a bash-script using `gnuplot` and `ps2pdf`/`imagemagick` was created. To create a PDF-plot of a file (`LOG00110.TXT`) with the title "Title" and subtitle "Subtitle", and to make sure the capacity and max/min voltage and current values are displayed above the graph, one can use the following command:
+
+```bash
+logplot -f "LOG00110.TXT" -t "Title" -st "Subtitle" -at
+```
+
+<br/>
+
+Below is a list of all of the possible commands, which can also be shown with the command `logplot -h`. The bash-script itself can be found [here](software/logplot)
+
+<img src="documentation/img/logplot.png" alt="Logplot help menu">
+
+<br/>
+
+## 4 - Additional hardware changes (carrier board v1.0)
 
 To simplify the firmware for the rotary encoder logic some pins were swapped around on header `J9` and `J11`. This is highlighted by bold text on the wiring-diagram on the **STM32F103C8T6 board**.
 
@@ -101,7 +117,7 @@ Unfortunately a wrong MOSFET was used for the function to power the external Ope
 
 <br/>
 
-## 4 - Future code-additions
+## 5 - Future code-additions
 
 The firmware is constructed with a lot of extra variables to facilitate the functionality to only update changed values on the displays. This speeds up the code but does however create a lot of *overhead*. In the future this can certainly be optimized.
 

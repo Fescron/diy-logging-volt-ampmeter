@@ -1,0 +1,370 @@
+#!/bin/bash
+
+# ================================================================== #
+# Script using gnuplot and ps2pdf/imagemagick to create a graph      #
+# on an A4 landscape PDF of the CSV data from the logging            #
+# volt/amp meter. It can also extract the summary-info on the last   #
+# line and put it in the title. See also https://logger.brechtve.be  #
+#                                                                    #
+#   USAGE: see "logplot -h"                                          #
+#                                                                    #
+# Brecht Van Eeckhoudt - 08/12/2021 (development started 03/12/2021) #
+# Initially written on Ubuntu 20.04                                  #
+# ================================================================== #
+
+# Version of this script (date)
+VERSION="08/12/2021"
+
+# TODO add arguments to set xrange with minutes/hours?
+# TODO add argument to change some axes to logaritmic ones ( set logscale (x|y|y2) )
+# TODO add arguments to add labels/arrows
+# TODO add argument to select time plotting ( -time )
+# TODO add argument to disable runtime/date ( -nr -nd) => remove disable all text thing? Or check if nothing is selected and then don't execute the code?
+# TODO add argument to plot in a window/to a PNG instead of to a PDF
+# TODO add argument to enable boxes with values on the lines
+# TODO add arguments to plot power vs ... (or use multiplot?)
+
+# Print help menu if no arguments are given when calling the script
+if [[ $# -eq 0 ]]; then 
+	NOARGUMENTS='1'
+	ARGUMENTS=1
+else
+	ARGUMENTS=$#
+fi
+
+# Loop through all of the arguments and change variables accordingly
+for ((i=1; i<=$ARGUMENTS; i++))
+do
+	# "${!i}" = Indirect expansion (parameter is expanded twice)
+	if [[ ${!i} == '-h' || $NOARGUMENTS == '1' ]]; then
+		# echo "-e" for enabling escape sequences
+		# echo "-n" for not advancing to the next line
+		#   - "\e[1m"  = bold
+		#   - "\e[93m" = light yellow
+		#   - "\e[0m"  = reset all attributes
+		echo -e "\e[93m\e[1mLOGPLOT HELP MENU (version $VERSION)"
+		echo -e "Brecht Van Eeckhoudt - https://logger.brechtve.be\e[0m\n"
+		echo -e "\e[93mAvailable arguments: "
+		echo " -h             : Print this menu"
+		echo " -f <inputfile> : Set input-file"
+		echo " -t <title>     : Set graph title"
+		echo " -st <subtitle> : Set graph subtitle"
+		echo " -nt            : Disable all text above graph (no text)"
+		echo " -at            : Print capacity and max/min voltage/current values above graph (all text)"
+		echo " -c             : Print capacity values above graph"
+		echo " -mv            : Print max/min voltage values above graph"
+		echo " -mc            : Print max/min current values above graph"
+		echo " -(x|y|y2)r <range> : Set x|y|y2range (ex.: \"[1:]\" or \"[0:10]\")"
+		echo " -(x|y|y2)t <tics>  : Set x|y|y2tics  (ex.: \"0.25\" or \"(1, 5, 10)\")"
+		echo " -l <position>|off  : Set key/legend position (ex.: \"outside right top\", \"left bmargin\" or \"at 10,10\") or disable it"
+		echo " -(x|y|y2)l <label> : Set x|y|y2 axis label (ex.: \"\" to disable axis label)"
+		echo " -l(1|2) <label>    : Set line 1|2 label name in key/legend"
+		echo " -volt          : Only plot voltage over (run)time"
+		echo " -curr          : Only plot current over (run)time"
+		echo " -pow           : Only plot power over (run)time"
+		echo " -ne            : Disable extension of the axis-ranges to the next tic-mark position"
+		echo " -e <text>      : Define extra text to add to the output-filename before the .pdf extension"
+		echo -en "\e[0m"
+		CONTINUE='0' # Make sure no other code is executed
+	elif [[ ${!i} == '-f' ]]; then    # Set filename
+		j=$((i+1))
+		FILE="${!j}"
+	elif [[ ${!i} == '-t' ]]; then    # Set title
+		j=$((i+1))
+		TITLE="${!j}"
+	elif [[ ${!i} == '-st' ]]; then   # Set subtitle
+		j=$((i+1))
+		SUBTITLE="${!j}"
+	elif [[ ${!i} == '-nt' ]]; then   # Disable all text above graph
+		NOTITLE='1'
+	elif [[ ${!i} == '-at' ]]; then   # Print capacity and max/min voltage/current values above graph
+		CAPACITY='1'
+		MAXMINVOLT='1'
+		MAXMINCURR='1'
+	elif [[ ${!i} == '-c' ]]; then    # Print capacity values above plot
+		CAPACITY='1'
+	elif [[ ${!i} == '-mv' ]]; then   # Print max/min voltage values above plot
+		MAXMINVOLT='1'
+	elif [[ ${!i} == '-mc' ]]; then   # Print max/min curent values above plot
+		MAXMINCURR='1'
+	elif [[ ${!i} == '-xr' ]]; then   # Set xrange
+		j=$((i+1))
+		XRANGE="set xr ${!j}"
+	elif [[ ${!i} == '-yr' ]]; then   # Set yrange
+		j=$((i+1))
+		YRANGE="set yr ${!j}"
+	elif [[ ${!i} == '-y2r' ]]; then  # Set y2range
+		j=$((i+1))
+		Y2RANGE="set y2r ${!j}"
+	elif [[ ${!i} == '-xt' ]]; then   # Set xtics
+		j=$((i+1))
+		XTICS="set xtics ${!j}; "
+	elif [[ ${!i} == '-yt' ]]; then   # Set ytics
+		j=$((i+1))
+		YTICS="set ytics ${!j}; "
+	elif [[ ${!i} == '-y2t' ]]; then  # Set y2tics
+		j=$((i+1))
+		Y2TICS="set y2tics ${!j}; "
+	elif [[ ${!i} == '-l' ]]; then    # Set key/legend position or disable it
+		j=$((i+1))
+		
+		if [[ ${!j} == 'off' ]]; then
+			LEGEND1="set key ${!j}"
+			LEGEND='0' # Don't call other key/legend settings
+		else
+			LEGEND1="set key ${!j}"
+		fi
+	elif [[ ${!i} == '-xl' ]]; then   # Set xlabel
+		j=$((i+1))
+		XLBL="${!j}"
+	elif [[ ${!i} == '-yl' ]]; then   # Set ylabel
+		j=$((i+1))
+		YLBL="${!j}"
+	elif [[ ${!i} == '-y2l' ]]; then  # Set y2label
+		j=$((i+1))
+		Y2LBL="${!j}"
+	elif [[ ${!i} == '-l1' ]]; then   # Set line 1 title
+		j=$((i+1))
+		LINE1="title \"${!j}\""
+	elif [[ ${!i} == '-l2' ]]; then   # Set line 2 title
+		j=$((i+1))
+		LINE2="title \"${!j}\""
+	elif [[ ${!i} == '-volt' ]]; then # Only plot voltage
+		VOLT='1'
+	elif [[ ${!i} == '-curr' ]]; then # Only plot current
+		CURR='1'
+	elif [[ ${!i} == '-pow' ]]; then  # Only plot power
+		POW='1'
+	elif [[ ${!i} == '-ne' ]]; then   # Disable extension of the axis ranges to next tic-mark position
+		EXTENSIONSCALE="set autoscale fix"
+	elif [[ ${!i} == '-e' ]]; then    # Set extra text before .pdf extension
+		j=$((i+1))
+		EXTRA="${!j}"
+	fi
+done
+
+# Don't execute other code if "help" is called
+if [[ $CONTINUE != '0' ]]; then
+	
+	# Add title-text if necessary
+	if [[ $NOTITLE != '1' ]]; then
+	
+		OLDIFS=$IFS
+		IFS=','
+		
+		# Gather the data to put in the title from the last line of the file (quote marks so spaces can exist in the filepath)
+		[ ! -f "$FILE" ] && { echo "$FILE file not found"; exit 99; }
+		while read date runtime capAh capWh vMax vMin aMax aMin
+		do
+			# Enhanced text mode: "{/=12 TEXT}\n": Changes the font size of each line (but not of new line character) to increase space between lines
+			#                     "{/:Bold TEXT}": Puts text in bold
+
+			# Add a title if one was given
+			if [[ -n "$TITLE" ]]; then PLOTTITLE+="{/:Bold {/=12 $TITLE}}\n"; fi
+
+			# Add a subtitle if one was given
+			if [[ -n "$SUBTITLE" ]]; then PLOTTITLE+="{/=12 $SUBTITLE}\n"; fi
+
+			PLOTTITLE+="{/=12 $date}\n\n"
+			PLOTTITLE+="{/=12 Runtime [hh:mm:ss]: $runtime}"
+
+			# Add capacity to title if required
+			if [[ $CAPACITY == '1' ]]; then PLOTTITLE+="\n{/=12 Capacity [Ah]: $capAh - Capacity [Wh]: $capWh}"; fi
+
+			# Add min/max voltage values to title if required
+			if [[ $MAXMINVOLT == '1' ]]; then PLOTTITLE+="\n{/=12 Max Volt [V]: $vMax - Min Volt [V]: $vMin}"; fi
+			
+			# Add min/max current values to title if required
+			if [[ $MAXMINCURR == '1' ]]; then PLOTTITLE+="\n{/=12 Max Curr [A]: $aMax - Min Curr [A]: $aMin}"; fi
+
+		# Read the last line of the file (-n = quiet mode) and pass the output as a file to the while loop using process substitution ("<(...)") (quote marks so spaces can exist in the filepath)
+		done < <(tail -n -1 "$FILE")
+
+		IFS=$OLDIFS
+		
+	fi
+
+	# Remove the last two lines of the original file ("-n" = quiet mode) and save it as a temporary file (quote marks so spaces can exist in the filepath)
+	head -n -2 "$FILE" > "$FILE".temp
+	
+	# Add default legend/key settings if necessary
+	if [[ $LEGEND != '0' ]]; then
+		LEGEND2="set key autotitle columnhead"     # Use the first line as the "title" for the line in the key/legend
+		LEGEND3="set key spacing 1.2 font \",12\"" # Increase inter-line spacing in the key/legend
+		LEGEND4="set key box width -2 height 0.5"  # Draw a box around the key/legend and update the dimensions
+	fi
+	
+	# Add default legend/key position if necessary
+	if [[ -z "$LEGEND1" ]]; then LEGEND1="set key right top"; fi
+	
+	# Configure labels according to variables
+	if [[ $VOLT == '1' ]]; then
+		# Add default XLBL if necessary
+		#   ${var+x} is a parameter expansion which evaluates to nothing if var is unset, and substitutes the string x otherwise
+		#     Quotes can be omitted because this syntax and usage guarantees this will only expand to something that does not require quotes 
+		#     (since it either expands to x (which contains no word breaks so it needs no quotes), or to nothing (which results in [ -z  ], 
+		#     which conveniently evaluates to the same value (true) that [ -z "" ] does as well)).
+		if [[ -z ${XLBL+x} ]]; then XLBL="Runtime [hh:mm:ss]"; fi
+		
+		# Add default YLBL if necessary
+		if [[ -z ${YLBL+x} ]]; then YLBL="Voltage [V]"; fi
+		
+		# Construct final plot-command
+		PLOTCMD="plot \"${FILE}.temp\" using 2:3 with lines ls 101 ${LINE1}"
+		
+	elif [[ $CURR == '1' ]]; then
+		# Add default XLBL if necessary
+		if [[ -z ${XLBL+x} ]]; then XLBL="Runtime [hh:mm:ss]"; fi
+		
+		# Add default YLBL if necessary
+		if [[ -z ${YLBL+x} ]]; then YLBL="Current [A]"; fi
+		
+		# Construct final plot-command
+		PLOTCMD="plot \"${FILE}.temp\" using 2:4 with lines ls 101 ${LINE1}"
+		
+	elif [[ $POW == '1' ]]; then
+		# Add default XLBL if necessary
+		if [[ -z ${XLBL+x} ]]; then XLBL="Runtime [hh:mm:ss]"; fi
+		
+		# Add default YLBL if necessary
+		if [[ -z ${YLBL+x} ]]; then YLBL="Power [W]"; fi
+		
+		# Construct final plot-command
+		if [[ -n "$LINE1" ]]; then
+			PLOTCMD="plot \"${FILE}.temp\" using 2:5 with lines ls 101 ${LINE1}"
+		else
+			PLOTCMD="plot \"${FILE}.temp\" using 2:5 with lines ls 101 title \"  Power [W]\"" # Manual title name here to fix spacing...
+		fi
+		
+	else
+		# Add default XLBL if necessary
+		if [[ -z ${XLBL+x} ]]; then XLBL="Runtime [hh:mm:ss]"; fi
+		
+		# Add default YLBL if necessary
+		if [[ -z ${YLBL+x} ]]; then YLBL="Voltage [V]"; fi
+		
+		# Add default Y2LBL if necessary
+		if [[ -z ${Y2LBL+x} ]]; then Y2LBL="Current [A]"; fi
+		
+		# Gather whole "set" line for label name
+		Y2LABEL="set y2label \"${Y2LBL}\" offset -1,0 font \",12\""
+		
+		# Enable y2tics
+		Y2TICSEN="set y2tics font \",12\""
+		
+		# Construct final plot-command
+		PLOTCMD="plot \"${FILE}.temp\" using 2:3 with lines ls 101 ${LINE1}, '' using 2:4 with lines axis x1y2 ls 102 ${LINE2}"
+	fi
+	
+	# Gather whole "set" lines for label names
+	XLABEL="set xlabel \"${XLBL}\" offset 0,-2 font \",12\""
+	YLABEL="set ylabel \"${YLBL}\" offset 1,0 font \",12\""
+	
+	# Use "heredoc" to do final gnuplot call
+	gnuplot <<- EOF
+		# <font ",12"> is used everywhere because the global font size is bigger and newlines (\n)
+		# of this size can be used to increase the inter-line spacing in the title
+		
+        set datafile separator ','
+		set xdata time          # Indicate that the X-axis is time-data
+		set timefmt "%H:%M:%S"  # Specify the time-string format
+		set format x "%H:%M:%S" # Format the X-axis (otherwise MM:SS is used)
+
+		set xtics rotate by 45 offset -3.5,-2.4 # Rotate and move the labels of the X-axis
+
+		set title "${PLOTTITLE}"
+		
+		# Incude label settings
+		${XLABEL}
+		${YLABEL}
+		${Y2LABEL}
+
+		# Enable second axis if necessary
+		${Y2TICSEN}
+		
+		# Disable extension of the axis ranges to next tic-mark position if necessary
+		${EXTENSIONSCALE}
+		
+		set ytics nomirror font ",12" # Don't show tics of the left axis on the right axis
+		set xtics nomirror font ",12" # Don't show tics on top of the graph
+
+		set format y  "%.2f" # Format  Y-axis as a 2 decimal float
+		set format y2 "%.2f" # Format Y2-axis as a 2 decimal float
+
+		set style line 100 lt 1 lc rgb "grey" lw 0.5 # Define a new line style for the grid
+		set grid ls 100                              # Use the defined line style for the grid lines
+
+		set style line 101 lw 3 lt rgb "#008080" # Define a new line style for plotting (color = teal)
+		set style line 102 lw 3 lt rgb "#ff7f00" # Define a new line style for plotting (color = orange)
+		
+		# Include range settings
+		${XRANGE}
+		${YRANGE}
+		${Y2RANGE}
+		
+		# Include tick settings
+		${XTICS}
+		${YTICS}
+		${Y2TICS}
+		
+		# Include key/legend settings
+		${LEGEND1}
+		${LEGEND2}
+		${LEGEND3}
+		${LEGEND4}
+		
+		
+		# EXTRA THINGS (TODO)
+		#set label "Test" at 40, 10
+		#set arrow from 1,1 to 5,10
+		#set xtic auto
+		#set mytics 4
+		#set xzeroaxis lt -1
+
+		# MULTIPLOT (TODO)
+		#set multiplot   # multiplot mode (prompt changes to 'multiplot')
+		#set size 1, 0.5
+		#set origin 0.0,0.5
+		#plot sin(x), log(x)
+		#set origin 0.0,0.0
+		#plot sin(x), log(x), cos(x)
+		#unset multiplot # exit multiplot mode (prompt changes back to 'gnuplot')
+		
+		
+		# Configure the terminal so a postscript file is produced
+		# NOTE: A bigger font than elsewhere is used to increase the inter-line-spacing in the title (keep "\n" size 14)
+		set terminal postscript enhanced color landscape 'Arial' 14
+		set output "${FILE}.ps" # Set the output filename using the filename passed by a variable
+		#set size ratio 0.71    # Change size ratio so graph looks more square
+		
+		
+		# Configure the terminal so a PNG file is produced (TODO)
+		#set terminal pngcairo size 1200,900 enhanced font 'Arial, 14'
+		#set output 'filename.png'
+
+
+		# Configure the terminal so a different gnuplot window with another font(size) is used (TODO)
+		# set terminal wxt size 1200,900 enhanced font 'Segoe UI,10' persist
+        
+		
+		# Plot the whole thing
+		${PLOTCMD}
+	EOF
+
+	# Remove the extension from the filename (quote marks so spaces can exist in the filepath)
+	NAME="${FILE##*/}"
+	NAME="${NAME%.*}"
+
+	# Convert the postscript data to a PDF-file (quote marks so spaces can exist in the filepath)
+	if [[ -n "$EXTRA" ]]; then
+		ps2pdf -sPAGESIZE=a4 "$FILE".ps "$NAME-$EXTRA".pdf # Add extra text before the PDF extension if given
+	else
+		ps2pdf -sPAGESIZE=a4 "$FILE".ps "$NAME".pdf
+	fi
+
+	# Clean up temporary files (quote marks so spaces can exist in the filepath)
+	rm "$FILE".temp
+	rm "$FILE".ps
+	
+	echo -e "\e[93mDone!\e[0m"
+fi
