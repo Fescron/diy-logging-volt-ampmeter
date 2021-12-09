@@ -16,9 +16,9 @@
 VERSION="08/12/2021"
 
 # TODO add argument to change some axes to logaritmic ones ( set logscale (x|y|y2) )
+# TODO add argument to remove seconds from x-axis
 # TODO add arguments to set xrange with minutes/hours?
 # TODO add arguments to add labels/arrows
-# TODO add argument to select time plotting ( -time )
 # TODO add argument to plot in a window/to a PNG instead of to a PDF
 # TODO add argument to enable boxes with values on the lines
 # TODO add arguments to plot power vs ... (or use multiplot?)
@@ -46,7 +46,7 @@ do
 		echo -e "\e[93mAvailable arguments: "
 		echo " -h             : Print this menu"
 		echo " -f <inputfile> : Set input-file"
-		echo " -t <title>     : Set graph title"
+		echo " -t <title>     : Set graph title (subscript: \"A_{BC}\", superscript: \"A^{BC}\""
 		echo " -st <subtitle> : Set graph subtitle"
 		echo " -nd            : Disable date above graph (no date)"
 		echo " -nr            : Disable runtime above graph (no runtime)"
@@ -59,6 +59,7 @@ do
 		echo " -l <position>|off  : Set key/legend position (ex.: \"outside right top\", \"left bmargin\" or \"at 10,10\") or disable it"
 		echo " -(x|y|y2)l <label> : Set x|y|y2 axis label (ex.: \"\" to disable axis label)"
 		echo " -l(1|2) <label>    : Set line 1|2 label name in key/legend"
+		echo " -time          : Plot time instead of runtime on the horizontal (x) axis"
 		echo " -volt          : Only plot voltage over (run)time"
 		echo " -curr          : Only plot current over (run)time"
 		echo " -pow           : Only plot power over (run)time"
@@ -131,6 +132,8 @@ do
 	elif [[ ${!i} == '-l2' ]]; then   # Set line 2 title
 		j=$((i+1))
 		LINE2="title \"${!j}\""
+	elif [[ ${!i} == '-time' ]]; then # Plot using time instead of runtime
+		TIME='1'
 	elif [[ ${!i} == '-volt' ]]; then # Only plot voltage
 		VOLT='1'
 	elif [[ ${!i} == '-curr' ]]; then # Only plot current
@@ -238,49 +241,64 @@ if [[ $CONTINUE != '0' ]]; then
 	# Add default legend/key position if necessary
 	if [[ -z "$LEGEND1" ]]; then LEGEND1="set key right top"; fi
 	
+	# Add default XLBL if necessary
+	#   ${var+x} is a parameter expansion which evaluates to nothing if var is unset, and substitutes the string x otherwise
+	#     Quotes can be omitted because this syntax and usage guarantees this will only expand to something that does not require quotes 
+	#     (since it either expands to x (which contains no word breaks so it needs no quotes), or to nothing (which results in [ -z  ], 
+	#     which conveniently evaluates to the same value (true) that [ -z "" ] does as well)).
+	if [[ $TIME == '1' ]]; then
+		if [[ -z ${XLBL+x} ]]; then XLBL="Time [hh:mm:ss]"; fi
+	else
+		if [[ -z ${XLBL+x} ]]; then XLBL="Runtime [hh:mm:ss]"; fi
+	fi
+	
 	# Configure labels according to variables
 	if [[ $VOLT == '1' ]]; then
-		# Add default XLBL if necessary
-		#   ${var+x} is a parameter expansion which evaluates to nothing if var is unset, and substitutes the string x otherwise
-		#     Quotes can be omitted because this syntax and usage guarantees this will only expand to something that does not require quotes 
-		#     (since it either expands to x (which contains no word breaks so it needs no quotes), or to nothing (which results in [ -z  ], 
-		#     which conveniently evaluates to the same value (true) that [ -z "" ] does as well)).
-		if [[ -z ${XLBL+x} ]]; then XLBL="Runtime [hh:mm:ss]"; fi
-		
+	
 		# Add default YLBL if necessary
 		if [[ -z ${YLBL+x} ]]; then YLBL="Voltage [V]"; fi
 		
 		# Construct final plot-command
-		PLOTCMD="plot \"${FILE}.temp\" using 2:3 with lines ls 101 ${LINE1}"
+		if [[ $TIME == '1' ]]; then
+			PLOTCMD="plot \"${FILE}.temp\" using 1:3 with lines ls 101 ${LINE1}"
+		else
+			PLOTCMD="plot \"${FILE}.temp\" using 2:3 with lines ls 101 ${LINE1}"
+		fi
 		
 	elif [[ $CURR == '1' ]]; then
-		# Add default XLBL if necessary
-		if [[ -z ${XLBL+x} ]]; then XLBL="Runtime [hh:mm:ss]"; fi
 		
 		# Add default YLBL if necessary
 		if [[ -z ${YLBL+x} ]]; then YLBL="Current [A]"; fi
 		
 		# Construct final plot-command
-		PLOTCMD="plot \"${FILE}.temp\" using 2:4 with lines ls 101 ${LINE1}"
+		if [[ $TIME == '1' ]]; then
+			PLOTCMD="plot \"${FILE}.temp\" using 1:4 with lines ls 101 ${LINE1}"
+		else
+			PLOTCMD="plot \"${FILE}.temp\" using 2:4 with lines ls 101 ${LINE1}"
+		fi
 		
 	elif [[ $POW == '1' ]]; then
-		# Add default XLBL if necessary
-		if [[ -z ${XLBL+x} ]]; then XLBL="Runtime [hh:mm:ss]"; fi
 		
 		# Add default YLBL if necessary
 		if [[ -z ${YLBL+x} ]]; then YLBL="Power [W]"; fi
 		
 		# Construct final plot-command
-		if [[ -n "$LINE1" ]]; then
-			PLOTCMD="plot \"${FILE}.temp\" using 2:5 with lines ls 101 ${LINE1}"
+		if [[ $TIME == '1' ]]; then
+			if [[ -n "$LINE1" ]]; then
+				PLOTCMD="plot \"${FILE}.temp\" using 1:5 with lines ls 101 ${LINE1}"
+			else
+				PLOTCMD="plot \"${FILE}.temp\" using 1:5 with lines ls 101 title \"  Power [W]\"" # Manual title name here to fix spacing...
+			fi
 		else
-			PLOTCMD="plot \"${FILE}.temp\" using 2:5 with lines ls 101 title \"  Power [W]\"" # Manual title name here to fix spacing...
+			if [[ -n "$LINE1" ]]; then
+				PLOTCMD="plot \"${FILE}.temp\" using 2:5 with lines ls 101 ${LINE1}"
+			else
+				PLOTCMD="plot \"${FILE}.temp\" using 2:5 with lines ls 101 title \"  Power [W]\"" # Manual title name here to fix spacing...
+			fi
 		fi
 		
 	else
-		# Add default XLBL if necessary
-		if [[ -z ${XLBL+x} ]]; then XLBL="Runtime [hh:mm:ss]"; fi
-		
+	
 		# Add default YLBL if necessary
 		if [[ -z ${YLBL+x} ]]; then YLBL="Voltage [V]"; fi
 		
@@ -294,7 +312,12 @@ if [[ $CONTINUE != '0' ]]; then
 		Y2TICSEN="set y2tics font \",12\""
 		
 		# Construct final plot-command
-		PLOTCMD="plot \"${FILE}.temp\" using 2:3 with lines ls 101 ${LINE1}, '' using 2:4 with lines axis x1y2 ls 102 ${LINE2}"
+		if [[ $TIME == '1' ]]; then
+			PLOTCMD="plot \"${FILE}.temp\" using 1:3 with lines ls 101 ${LINE1}, '' using 1:4 with lines axis x1y2 ls 102 ${LINE2}"
+		else
+			PLOTCMD="plot \"${FILE}.temp\" using 2:3 with lines ls 101 ${LINE1}, '' using 2:4 with lines axis x1y2 ls 102 ${LINE2}"
+		fi
+		
 	fi
 	
 	# Gather whole "set" lines for label names
@@ -307,9 +330,13 @@ if [[ $CONTINUE != '0' ]]; then
 		# of this size can be used to increase the inter-line spacing in the title
 		
         set datafile separator ','
-		set xdata time          # Indicate that the X-axis is time-data
-		set timefmt "%H:%M:%S"  # Specify the time-string format
-		set format x "%H:%M:%S" # Format the X-axis (otherwise MM:SS is used)
+		set xdata time             # Indicate that the X-axis is time-data
+		set timefmt "%H:%M:%S"     # Specify the time-string format
+		set format x "%tH:%tM:%tS" # Format the X-axis (otherwise MM:SS is used)
+		
+		# %tH +/- hours relative to time=0 (does not wrap at 24)
+		# %tM +/- minutes relative to time=0
+		# %tS +/- seconds associated with previous tH or tM field
 
 		set xtics rotate by 45 offset -3.5,-2.4 # Rotate and move the labels of the X-axis
 
