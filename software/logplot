@@ -8,12 +8,12 @@
 #                                                                    #
 #   USAGE: see "logplot -h"                                          #
 #                                                                    #
-# Brecht Van Eeckhoudt - 08/12/2021 (development started 03/12/2021) #
+# Brecht Van Eeckhoudt - 10/12/2021 (development started 03/12/2021) #
 # Initially written on Ubuntu 20.04                                  #
 # ================================================================== #
 
 # Version of this script (date)
-VERSION="08/12/2021"
+VERSION="10/12/2021"
 
 # TODO add argument to change some axes to logaritmic ones ( set logscale (x|y|y2) )
 # TODO add argument to remove seconds from x-axis
@@ -46,10 +46,10 @@ do
 		echo -e "\e[93mAvailable arguments: "
 		echo " -h             : Print this menu"
 		echo " -f <inputfile> : Set input-file"
-		echo " -t <title>     : Set graph title (subscript: \"A_{BC}\", superscript: \"A^{BC}\""
+		echo " -t <title>     : Set graph title (subscript: \"A_{BC}\", superscript: \"A^{BC}\")"
 		echo " -st <subtitle> : Set graph subtitle"
-		echo " -nd            : Disable date above graph (no date)"
-		echo " -nr            : Disable runtime above graph (no runtime)"
+		echo " -ndt           : Don't print date and time of first measurement above graph (no datetime)"
+		echo " -nr            : Don't print total runtime above graph (no runtime)"
 		echo " -av            : Print capacity and max/min voltage/current values above graph (all values)"
 		echo " -c             : Print capacity values above graph"
 		echo " -mv            : Print max/min voltage values above graph"
@@ -76,8 +76,8 @@ do
 	elif [[ ${!i} == '-st' ]]; then   # Set subtitle
 		j=$((i+1))
 		SUBTITLE="${!j}"
-	elif [[ ${!i} == '-nd' ]]; then   # Disable date above graph
-		NODATE='1'
+	elif [[ ${!i} == '-ndt' ]]; then  # Disable date and time above graph
+		NODATETIME='1'
 	elif [[ ${!i} == '-nr' ]]; then   # Disable runtime above graph
 		NORUNTIME='1'
 	elif [[ ${!i} == '-av' ]]; then   # Print capacity and max/min voltage/current values above graph
@@ -159,76 +159,65 @@ if [[ $CONTINUE != '0' ]]; then
 
 	# Add a subtitle if one was given
 	if [[ -n "$SUBTITLE" ]]; then 
-	
 		if [[ -n "$TITLE" ]]; then PLOTTITLE+="\n"; fi # Add a newline if necessary
-		
 		PLOTTITLE+="{/=12 $SUBTITLE}"
 	fi
 	
-	# Add info to title-text from the last line of the input-file if necessary
-	if [[ $NODATE != '1' || $NORUNTIME != '1' || $CAPACITY == '1' || $MAXMINVOLT == '1' || $MAXMINCURR == '1' ]]; then
+	OLDIFS=$IFS
+	IFS=','
 	
-		OLDIFS=$IFS
-		IFS=','
-		
-		# Gather the data to put in the title from the last line of the input-file (quote marks so spaces can exist in the filepath)
-		[ ! -f "$FILE" ] && { echo "$FILE file not found"; exit 99; }
-		while read date runtime capAh capWh vMax vMin aMax aMin
+	# Gather the date and time from the second line of the input-file to add to the title if necessary 
+	if [[ $NODATETIME != '1' ]]; then
+		[ ! -f "$FILE" ] && { echo "$FILE file not found"; exit 99; } # Quote marks so spaces can exist in the filepath
+		while read datetime runtime volt curr pow
 		do
+			if [[ -n "$TITLE" || -n "$SUBTITLE" ]]; then PLOTTITLE+="\n"; fi # Add a newline if necessary
+			PLOTTITLE+="{/=12 $datetime}"
 
-			# Add date to title if required
-			if [[ $NODATE != '1' ]]; then 
-				
-				if [[ -n "$TITLE" || -n "$SUBTITLE" ]]; then PLOTTITLE+="\n"; fi # Add a newline if necessary
-			
-				PLOTTITLE+="{/=12 $date}"
-			fi
-			
+		# Read the second line of the file and pass the output as a file to the while loop using process substitution ("<(...)") (quote marks so spaces can exist in the filepath)
+		done < <(sed '2q;d' "$FILE")
+		# "2q" will quit immediately when the line number is 2, "d" will delete the line instead of printing it; this is inhibited on the last line because the "q" causes the rest of the script to be skipped when quitting.
+	fi
+	
+	# Gather info from the last line of the input-file to add to the title if necessary
+	if [[  $NORUNTIME != '1' || $CAPACITY == '1' || $MAXMINVOLT == '1' || $MAXMINCURR == '1' ]]; then
+		[ ! -f "$FILE" ] && { echo "$FILE file not found"; exit 99; } # Quote marks so spaces can exist in the filepath
+		while read runtime capAh capWh vMax vMin aMax aMin
+		do			
 			# Add runtime to title if required
 			if [[ $NORUNTIME != '1' ]]; then
-			
-				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATE != '1' ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
-			
+				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATETIME != '1' ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
 				PLOTTITLE+="{/=12 Runtime [hh:mm:ss]: $runtime}"
 			fi
 
 			# Add capacity to title if required
 			if [[ $CAPACITY == '1' ]]; then
-			
-				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATE != '1' ]] && [[ $NORUNTIME == '1' ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
-				
+				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATETIME != '1' ]] && [[ $NORUNTIME == '1' ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
 				if [[ $NORUNTIME != '1' ]]; then PLOTTITLE+="\n"; fi # Add a newline if necessary
-				
 				PLOTTITLE+="{/=12 Capacity [Ah]: $capAh - Capacity [Wh]: $capWh}"
 			fi
 
 			# Add min/max voltage values to title if required
 			if [[ $MAXMINVOLT == '1' ]]; then
-			
-				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATE != '1' ]] && [[ $NORUNTIME == '1' && $CAPACITY != '1' ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
-				
+				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATETIME != '1' ]] && [[ $NORUNTIME == '1' && $CAPACITY != '1' ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
 				if [[ $NORUNTIME != '1' || $CAPACITY == '1' ]]; then PLOTTITLE+="\n"; fi # Add a newline if necessary
-				
 				PLOTTITLE+="{/=12 Max Volt [V]: $vMax - Min Volt [V]: $vMin}"
 			fi
 			
 			# Add min/max current values to title if required
 			if [[ $MAXMINCURR == '1' ]]; then
-				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATE != '1' ]] && [[ $NORUNTIME == '1' && $CAPACITY != '1' && $MAXMINVOLT != '1'  ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
-				
+				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATETIME != '1' ]] && [[ $NORUNTIME == '1' && $CAPACITY != '1' && $MAXMINVOLT != '1'  ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
 				if [[ $NORUNTIME != '1' || $CAPACITY == '1' || $MAXMINVOLT == '1' ]]; then PLOTTITLE+="\n"; fi # Add a newline if necessary
-				
 				PLOTTITLE+="{/=12 Max Curr [A]: $aMax - Min Curr [A]: $aMin}"
 			fi
 
 		# Read the last line of the file (-n = quiet mode) and pass the output as a file to the while loop using process substitution ("<(...)") (quote marks so spaces can exist in the filepath)
 		done < <(tail -n -1 "$FILE")
-
-		IFS=$OLDIFS
-		
 	fi
+	
+	IFS=$OLDIFS
 
-	# Remove the last two lines of the original file ("-n" = quiet mode) and save it as a temporary file (quote marks so spaces can exist in the filepath)
+	# Move all but the last two lines to a temporary file ("-n" = quiet mode, quote marks so spaces can exist in the filepath)
 	head -n -2 "$FILE" > "$FILE".temp
 	
 	# Add default legend/key settings if necessary
@@ -320,6 +309,18 @@ if [[ $CONTINUE != '0' ]]; then
 		
 	fi
 	
+	# Construct time commands
+	if [[ $TIME == '1' ]]; then
+		TIMEFORMAT="%d/%m/%Y %H:%M:%S"
+		FORMATX="%H:%M:%S"
+	else
+		TIMEFORMAT="%H:%M:%S"
+		FORMATX="%tH:%tM:%tS"
+		# %tH +/- hours relative to time=0 (does not wrap at 24)
+		# %tM +/- minutes relative to time=0
+		# %tS +/- seconds associated with previous tH or tM field
+	fi
+	
 	# Gather whole "set" lines for label names
 	XLABEL="set xlabel \"${XLBL}\" offset 0,-2 font \",12\""
 	YLABEL="set ylabel \"${YLBL}\" offset 1,0 font \",12\""
@@ -330,13 +331,9 @@ if [[ $CONTINUE != '0' ]]; then
 		# of this size can be used to increase the inter-line spacing in the title
 		
         set datafile separator ','
-		set xdata time             # Indicate that the X-axis is time-data
-		set timefmt "%H:%M:%S"     # Specify the time-string format
-		set format x "%tH:%tM:%tS" # Format the X-axis (otherwise MM:SS is used)
-		
-		# %tH +/- hours relative to time=0 (does not wrap at 24)
-		# %tM +/- minutes relative to time=0
-		# %tS +/- seconds associated with previous tH or tM field
+		set xdata time              # Indicate that the X-axis is time-data
+		set timefmt "${TIMEFORMAT}" # Specify the time-string format
+		set format x "${FORMATX}"   # Format the X-axis (otherwise MM:SS is used)
 
 		set xtics rotate by 45 offset -3.5,-2.4 # Rotate and move the labels of the X-axis
 
