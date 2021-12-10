@@ -9,7 +9,7 @@
  *   them to displays and sends them (with time/date values) to a UART port so
  *   a Sparkfun OpenLog can log these measurements to a `.TXT` file, which can
  *   eventually be renamed to a `.CSV` so the measurements can be easily plotted.
- * @version 1.0
+ * @version 1.1
  * @author Brecht Van Eeckhoudt
  *
  * ******************************************************************************
@@ -17,11 +17,13 @@
  * @section Versions
  *
  *   @li v1.0: Initial version.
+ *   @li v1.1: Started printing date before time for each measurement-line, removed day-writing in footer.
  *
  * ******************************************************************************
  *
  * @todo
  *   **Things to do in the near future:**@n
+ *     - Fix max/min value logic.
  *     - Check Ah/Wh calculations
  *     - Check if the power/Ah/Wh calculations are done using wrong/old measurements.
  *     - Handle uint32_t wraparound for time between calculations measurements and waiting time.
@@ -912,8 +914,8 @@ void checkEncoder(void)
  *****************************************************************************/
 void writeHeader(void)
 {
-	USART1_print("Time [hour:min:sec],Runtime [hour:min:sec],Voltage [V],Current [A],Power [W]\r\n");
-	SEGGER_RTT_printf(0, "Time [hour:min:sec], Runtime [hour:min:sec], Voltage [V], Current [A], Power [W]\r\n");
+	USART1_print("Date and Time [day/month/year hour:min:sec],Runtime [hour:min:sec],Voltage [V],Current [A],Power [W]\r\n");
+	SEGGER_RTT_printf(0, "Date and Time [day/month/year hour:min:sec], Runtime [hour:min:sec], Voltage [V], Current [A], Power [W]\r\n");
 }
 
 
@@ -922,27 +924,14 @@ void writeHeader(void)
  *   Function to print the footer of the logfile (two lines).
  *
  * @details
- *   This function prints data which don't change every measurement. @n
+ *   This function prints data which doesn't change every measurement. @n
  *   This function also prints debugging information using Segger RTT.
  *****************************************************************************/
 void writeFooter(void)
 {
 	/* Print footer-header */
-	USART1_print("Date [day/month/year],Runtime [hour:min:sec],Capacity [Ah],Capacity [Wh],Max Volt [V],Min Volt [V],Max Curr [A],Min Curr [A]\r\n");
-	SEGGER_RTT_printf(0, "Date [day/month/year], Runtime [hour:min:sec], Capacity [Ah], Capacity [Wh], Max Volt [V], Min Volt [V], Max Curr [A], Min Curr [A]\r\n");
-
-	/* Print DATE */
-	USART1_print(rtc.charDay);
-	USART1_print("/");
-	USART1_print(rtc.charMonth);
-	USART1_print("/");
-	USART1_print(rtc.charYear);
-	SEGGER_RTT_printf(0, "%s/%s/%s", rtc.charDay, rtc.charMonth, rtc.charYear);
-
-	/* Print spacing */
-	USART1_print(",");
-	SEGGER_RTT_printf(0, " ");
-
+	USART1_print("Total runtime [hour:min:sec],Capacity [Ah],Capacity [Wh],Max Volt [V],Min Volt [V],Max Curr [A],Min Curr [A]\r\n");
+	SEGGER_RTT_printf(0, "Total runtime [hour:min:sec], Capacity [Ah], Capacity [Wh], Max Volt [V], Min Volt [V], Max Curr [A], Min Curr [A]\r\n");
 
 	/* Print RUNTIME */
 	USART1_print(cData.charRunHours);
@@ -1033,13 +1022,19 @@ void writeFooter(void)
  *****************************************************************************/
 void writeMeasurements(void)
 {
-	/* Print TIME */
+	/* Print DATE and TIME */
+	USART1_print(rtc.charDay);
+	USART1_print("/");
+	USART1_print(rtc.charMonth);
+	USART1_print("/");
+	USART1_print(rtc.charYear);
+	USART1_print(" ");
 	USART1_print(rtc.charHour);
 	USART1_print(":");
 	USART1_print(rtc.charMin);
 	USART1_print(":");
 	USART1_print(rtc.charSec);
-	SEGGER_RTT_printf(0, "%s:%s:%s", rtc.charHour, rtc.charMin, rtc.charSec);
+	SEGGER_RTT_printf(0, "%s/%s/%s %s:%s:%s", rtc.charDay, rtc.charMonth, rtc.charYear, rtc.charHour, rtc.charMin, rtc.charSec);
 
 	/* Print spacing */
 	USART1_print(",");
