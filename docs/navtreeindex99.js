@@ -246,8 +246,8 @@ var NAVTREEINDEX99 =
 "group__CMSIS__SCB.html#ga056d74fd538e5d36d3be1f28d399c877":[3,1,0,0,0,1026],
 "group__CMSIS__SCB.html#ga056d74fd538e5d36d3be1f28d399c877":[3,1,0,0,0,1027],
 "group__CMSIS__SCB.html#ga056d74fd538e5d36d3be1f28d399c877":[3,1,0,0,0,1028],
+"group__CMSIS__SCB.html#ga056d74fd538e5d36d3be1f28d399c877":[5,0,0,1,0,1,11,174],
 "group__CMSIS__SCB.html#ga056d74fd538e5d36d3be1f28d399c877":[5,0,0,1,0,1,13,495],
 "group__CMSIS__SCB.html#ga056d74fd538e5d36d3be1f28d399c877":[5,0,0,1,0,1,6,176],
-"group__CMSIS__SCB.html#ga056d74fd538e5d36d3be1f28d399c877":[5,0,0,1,0,1,7,495],
-"group__CMSIS__SCB.html#ga056d74fd538e5d36d3be1f28d399c877":[5,0,0,1,0,1,8,77]
+"group__CMSIS__SCB.html#ga056d74fd538e5d36d3be1f28d399c877":[5,0,0,1,0,1,7,495]
 };
