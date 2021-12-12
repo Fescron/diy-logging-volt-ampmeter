@@ -2,7 +2,7 @@
  * @file conversion.c
  * @brief Conversion and settings-related methods and structs
  *        for high-precision logging voltage/current meter.
- * @version 1.0
+ * @version 1.1
  * @author Brecht Van Eeckhoudt
  *
  * ******************************************************************************
@@ -10,6 +10,7 @@
  * @section Versions
  *
  *   @li v1.0: Initial version.
+ *   @li v1.1: Changed default measurement period to 10s.
  *
  * ******************************************************************************
  *
@@ -129,8 +130,8 @@ void initSettingsStruct(void)
 	settings.changePeriod = 0;    /* We're not changing the period yet */
 	settings.periodChanged = 1;   /* Force display update */
 	settings.remMeasPeriodS = 0;  /* Make sure we directly save the next measurement */
-	settings.measPeriodIndex = 1; /* Default index for measurement-period LUT */
-	settings.measPeriodS = 1;     /* Default to 1s measurement period */
+	settings.measPeriodIndex = 4; /* Default index for measurement-period LUT */
+	settings.measPeriodS = 10;    /* Default to 10s measurement period */
 
 	settings.vbat = 0.0;          /* Reset battery voltage */
 	settings.vbatCounter = 0;     /* Check battery voltage on startup */
