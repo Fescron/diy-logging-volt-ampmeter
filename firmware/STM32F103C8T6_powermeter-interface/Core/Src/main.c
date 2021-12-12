@@ -23,20 +23,27 @@
  *
  * @todo
  *   **Things to do in the near future:**@n
- *     - Fix max/min value logic.
- *     - Check Ah/Wh calculations
+ *     - Make sure to not save values if no valid measurements were received.
+ *        - Fix max/min value logic.
+ *     - Check Ah/Wh calculations.
  *     - Check if the power/Ah/Wh calculations are done using wrong/old measurements.
  *     - Handle uint32_t wraparound for time between calculations measurements and waiting time.
- *     - Add interrupt logging.
- *     - Add low-battery beeping.
- *     - Add buzzer functionality using TIM2 (`MX_TIM2_Init();`).
  *     - Compare floats more reliably.
+ *     - Don't send/do certain functions if one of the meters is powered down.
  *
  * @todo
  *   **Long-term future improvements:**@n
+ *     - Add external temperature reading functionality.
  *     - Add internal temperature reading functionality (`MX_ADC1_Init();`).
+ *     - Add interrupt-logging functionality.
+ *     - Add relay-opening functionality.
+ *     - Add "manual measurement-mode" to log on up-button press.
+ *     - Add function to stop measurements when the voltage/current is (above/) below a certain value.
  *     - Add "performance-mode" with no display refreshes.
  *        - (sub-page on right display, start/stop with up, beeps for confirmation)
+ *     - Add low-battery beeping.
+ *     - Add buzzer functionality using TIM2 (`MX_TIM2_Init();`).
+ *        -  (short beep button-press, longer when measurement taken, add ON/OFF settings page)
  *     - Optimize encoder logic so there is less copy-pasting.
  *     - Add debounce logic to `getSW0();`, `getSW1();` and `getENCkey();`.
  *     - Use `LL_GetTick();` instead of `HAL_GetTick();`?
@@ -49,7 +56,6 @@
  *     - Add overflow catch if data.voltage/current are negative values?
  *        - `data.power > 999.999`, `data.ah > 9999.999`, `data.wh > 9999.999`
  *     - Remove all Segger-RTT functionality?
- *     - Add relay-opening functionality.
  *     - Store settings in power-down-safe memory.
  *
  * ******************************************************************************
@@ -314,7 +320,6 @@ int main(void)
 		  }
 	  }
 
-
 	  /* Calculate power, Ah and Wh */
 	  if (data.voltReceived || data.currReceived)
 	  {
@@ -332,7 +337,7 @@ int main(void)
 		  if (data.latestMScounter == 0) msTime = data.msCounter0 - data.msCounter1;
 		  else if (data.latestMScounter == 1) msTime = data.msCounter1 - data.msCounter0;
 
-//		  SEGGER_RTT_printf(0, "%dms ", msTime);
+//			  SEGGER_RTT_printf(0, "%dms ", msTime);
 
 		  data.ah += data.current * ((float)msTime / 3600000.0);
 		  if (data.ah > 9999.999) data.ah = 9999.999;
@@ -347,7 +352,6 @@ int main(void)
 
 	  data.voltReceived = 0;
 	  data.currReceived = 0;
-
 
 	  /* Change variables if one second is elapsed */
 	  if (decSecondPassed())
