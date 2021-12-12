@@ -83,20 +83,31 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dt>File <a class="el" href="main_8c.html">main.c</a>  </dt>
 <dd><p class="startdd"><a class="anchor" id="_todo000003"></a> <b>Things to do in the near future:</b><br  />
 </p><ul>
+<li>Make sure to not save values if no valid measurements were received.<ul>
 <li>Fix max/min value logic.</li>
-<li>Check Ah/Wh calculations</li>
+</ul>
+</li>
+<li>Check Ah/Wh calculations.</li>
 <li>Check if the power/Ah/Wh calculations are done using wrong/old measurements.</li>
 <li>Handle uint32_t wraparound for time between calculations measurements and waiting time.</li>
-<li>Add interrupt logging.</li>
-<li>Add low-battery beeping.</li>
-<li>Add buzzer functionality using TIM2 (<code><a class="el" href="tim_8h.html#a4b8ff887fd3fdf26605e35927e4ff202">MX_TIM2_Init()</a>;</code>).</li>
 <li>Compare floats more reliably.</li>
+<li>Don't send/do certain functions if one of the meters is powered down.</li>
 </ul>
 <p class="enddd"><a class="anchor" id="_todo000004"></a> <b>Long-term future improvements:</b><br  />
 </p><ul>
+<li>Add external temperature reading functionality.</li>
 <li>Add internal temperature reading functionality (<code><a class="el" href="adc_8h.html#acccd58aa70215a6b184ad242312ffd0c">MX_ADC1_Init()</a>;</code>).</li>
+<li>Add interrupt-logging functionality.</li>
+<li>Add relay-opening functionality.</li>
+<li>Add "manual measurement-mode" to log on up-button press.</li>
+<li>Add function to stop measurements when the voltage/current is (above/) below a certain value.</li>
 <li>Add "performance-mode" with no display refreshes.<ul>
 <li>(sub-page on right display, start/stop with up, beeps for confirmation)</li>
+</ul>
+</li>
+<li>Add low-battery beeping.</li>
+<li>Add buzzer functionality using TIM2 (<code><a class="el" href="tim_8h.html#a4b8ff887fd3fdf26605e35927e4ff202">MX_TIM2_Init()</a>;</code>).<ul>
+<li>(short beep button-press, longer when measurement taken, add ON/OFF settings page)</li>
 </ul>
 </li>
 <li>Optimize encoder logic so there is less copy-pasting.</li>
@@ -112,7 +123,6 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 </ul>
 </li>
 <li>Remove all Segger-RTT functionality?</li>
-<li>Add relay-opening functionality.</li>
 <li>Store settings in power-down-safe memory. </li>
 </ul>
 </dd>
@@ -143,7 +153,7 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Dec 10 2021 19:19:01 for DIY Logging Volt/Ampmeter by
+    <li class="footer">Generated on Sun Dec 12 2021 23:20:40 for DIY Logging Volt/Ampmeter by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

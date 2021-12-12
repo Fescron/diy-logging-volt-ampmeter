@@ -1,6 +1,6 @@
 var NAVTREEINDEX56 =
 {
-"group__CMSIS__Core__SysTickFunctions.html#ga3b04d58738b66a28ff13f23d8b0ba7e5":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,1,0,277],
+"group__CMSIS__Core__SysTickFunctions.html#ga3b04d58738b66a28ff13f23d8b0ba7e5":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,1,0,276],
 "group__CMSIS__Core__SysTickFunctions.html#ga3bbb01bac30f6d11e0e305fa85afba65":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,107],
 "group__CMSIS__Core__SysTickFunctions.html#ga3bbb01bac30f6d11e0e305fa85afba65":[3,1,0,0,0,0,0,0,0,0,0,1,0,0,0,107],
 "group__CMSIS__Core__SysTickFunctions.html#ga3bbb01bac30f6d11e0e305fa85afba65":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0,107],
@@ -243,11 +243,11 @@ var NAVTREEINDEX56 =
 "group__CMSIS__Core__SysTickFunctions.html#ga40213a6b5620410cac83b0d89564609d":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,77],
 "group__CMSIS__Core__SysTickFunctions.html#ga40213a6b5620410cac83b0d89564609d":[3,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,77],
 "group__CMSIS__Core__SysTickFunctions.html#ga40213a6b5620410cac83b0d89564609d":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,1,0,77],
-"group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,182],
+"group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,183],
 "group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,0,1,0,0,2,20],
-"group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0,182],
-"group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,0,0,0,0,0,0,1,0,0,0,182],
+"group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0,183],
+"group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,0,0,0,0,0,0,1,0,0,0,183],
 "group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,1,0,1,0,0,2,20],
-"group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,182],
-"group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,182]
+"group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,183],
+"group__CMSIS__Core__SysTickFunctions.html#ga409fb08ad6d58c17fcb7f59d65db6f93":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,183]
 };
