@@ -1,5 +1,6 @@
 var NAVTREEINDEX275 =
 {
+"stm32f1xx__hal__conf_8h.html#a5ef4d67cd7630f6e2e67d17370fbffdb":[5,0,0,0,0,8,70],
 "stm32f1xx__hal__conf_8h.html#a62b0f224fa9c4f2e5574c9e52526f751":[5,0,0,0,0,8,3],
 "stm32f1xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21":[5,0,0,0,0,8,0],
 "stm32f1xx__hal__conf_8h.html#a6552186102a1131b2849ac55a582945d":[5,0,0,0,0,8,7],
@@ -248,6 +249,5 @@ var NAVTREEINDEX275 =
 "structARM__MPU__Region__t.html#ab5d3a650dbffd0b272bf7df5b140e8a8":[4,0,6,2],
 "structARM__MPU__Region__t.html#afe7a7721aa08988d915670efa432cdd2":[4,0,6,1],
 "structBKP__TypeDef.html":[3,83,1,2,2],
-"structBKP__TypeDef.html#a0c9bea0cf01f87439901a4296fdf3c4e":[3,83,1,2,2,2],
-"structBKP__TypeDef.html#a12b088b9ab361545a064c7e15ce94401":[3,83,1,2,2,9]
+"structBKP__TypeDef.html#a0c9bea0cf01f87439901a4296fdf3c4e":[3,83,1,2,2,2]
 };

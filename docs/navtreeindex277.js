@@ -1,5 +1,6 @@
 var NAVTREEINDEX277 =
 {
+"structPWR__PVDTypeDef.html#a540471bc6ac947fd8bc2c87f61d9faab":[3,84,8,0,0,1],
 "structPWR__PVDTypeDef.html#af692d691f0cb5871b319fd371fab34d8":[3,84,8,0,0,0],
 "structPWR__TypeDef.html":[3,83,1,2,18],
 "structPWR__TypeDef.html#ae17097e69c88b6c00033d6fb84a8182b":[3,83,1,2,18,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX277 =
 "structTIM__TypeDef.html#a4d1171e9a61538424b8ef1f2571986d0":[3,83,1,2,22,6],
 "structTIM__TypeDef.html#a5ba381c3f312fdf5e0b4119641b3b0aa":[3,83,1,2,22,8],
 "structTIM__TypeDef.html#a67d30593bcb68b98186ebe5bc8dc34b1":[3,83,1,2,22,19],
-"structTIM__TypeDef.html#a6a42766a6ca3c7fe10a810ebd6b9d627":[3,83,1,2,22,0],
-"structTIM__TypeDef.html#a6b1ae85138ed91686bf63699c61ef835":[3,83,1,2,22,11]
+"structTIM__TypeDef.html#a6a42766a6ca3c7fe10a810ebd6b9d627":[3,83,1,2,22,0]
 };

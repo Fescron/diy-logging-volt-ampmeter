@@ -3,6 +3,7 @@ var conversion_8h =
     [ "Data_t", "structData__t.html", "structData__t" ],
     [ "cData_t", "structcData__t.html", "structcData__t" ],
     [ "Settings_t", "structSettings__t.html", "structSettings__t" ],
+    [ "FLOAT_TO_INT", "conversion_8h.html#a56513db6d3653de6e6efc0bf653e8742", null ],
     [ "convertValues", "conversion_8h.html#ab1c1b4a3e2ef4209f78a7619f0d81bfc", null ],
     [ "decSecondPassed", "conversion_8h.html#a4373934292054f4e89299268b2704b90", null ],
     [ "forceConversion", "conversion_8h.html#a4b86dde5c0f3afc6ab3054d1583603ca", null ],

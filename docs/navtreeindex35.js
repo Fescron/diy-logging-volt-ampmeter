@@ -15,6 +15,7 @@ var NAVTREEINDEX35 =
 "group__CMSIS__Core__NVICFunctions.html#ga8045d905a5ca57437d8e6f71ffcb6df5":[5,0,0,1,0,1,14,271],
 "group__CMSIS__Core__NVICFunctions.html#ga8045d905a5ca57437d8e6f71ffcb6df5":[5,0,0,1,0,1,15,273],
 "group__CMSIS__Core__NVICFunctions.html#ga8045d905a5ca57437d8e6f71ffcb6df5":[5,0,0,1,0,1,16,46],
+"group__CMSIS__Core__NVICFunctions.html#ga8045d905a5ca57437d8e6f71ffcb6df5":[5,0,0,1,0,1,17,211],
 "group__CMSIS__Core__NVICFunctions.html#ga8045d905a5ca57437d8e6f71ffcb6df5":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,255],
 "group__CMSIS__Core__NVICFunctions.html#ga8045d905a5ca57437d8e6f71ffcb6df5":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,256],
 "group__CMSIS__Core__NVICFunctions.html#ga8045d905a5ca57437d8e6f71ffcb6df5":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,257],
@@ -231,6 +232,7 @@ var NAVTREEINDEX35 =
 "group__CMSIS__Core__NVICFunctions.html#ga804af63bb4c4c317387897431814775d":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,240],
 "group__CMSIS__Core__NVICFunctions.html#ga804af63bb4c4c317387897431814775d":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,241],
 "group__CMSIS__Core__NVICFunctions.html#ga804af63bb4c4c317387897431814775d":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,242],
+"group__CMSIS__Core__NVICFunctions.html#ga857de13232ec65dd15087eaa15bc4a69":[5,0,0,1,0,1,12,199],
 "group__CMSIS__Core__NVICFunctions.html#ga857de13232ec65dd15087eaa15bc4a69":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,139],
 "group__CMSIS__Core__NVICFunctions.html#ga857de13232ec65dd15087eaa15bc4a69":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,140],
 "group__CMSIS__Core__NVICFunctions.html#ga857de13232ec65dd15087eaa15bc4a69":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,141],
@@ -247,7 +249,5 @@ var NAVTREEINDEX35 =
 "group__CMSIS__Core__NVICFunctions.html#ga857de13232ec65dd15087eaa15bc4a69":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,140],
 "group__CMSIS__Core__NVICFunctions.html#ga857de13232ec65dd15087eaa15bc4a69":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,141],
 "group__CMSIS__Core__NVICFunctions.html#ga857de13232ec65dd15087eaa15bc4a69":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,142],
-"group__CMSIS__Core__NVICFunctions.html#ga857de13232ec65dd15087eaa15bc4a69":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,143],
-"group__CMSIS__Core__NVICFunctions.html#ga857de13232ec65dd15087eaa15bc4a69":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,144],
-"group__CMSIS__Core__NVICFunctions.html#ga857de13232ec65dd15087eaa15bc4a69":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,145]
+"group__CMSIS__Core__NVICFunctions.html#ga857de13232ec65dd15087eaa15bc4a69":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,143]
 };

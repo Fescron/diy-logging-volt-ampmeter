@@ -1,5 +1,6 @@
 var NAVTREEINDEX82 =
 {
+"group__CMSIS__Core__SysTickFunctions.html#gaf25f7ab87e12ad6626ac1119cea6cad2":[3,1,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,229],
 "group__CMSIS__Core__SysTickFunctions.html#gaf25f7ab87e12ad6626ac1119cea6cad2":[3,1,0,0,0,0,1,0,0,1,0,0,0,1,0,1,0,229],
 "group__CMSIS__Core__SysTickFunctions.html#gaf25f7ab87e12ad6626ac1119cea6cad2":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,229],
 "group__CMSIS__Core__SysTickFunctions.html#gaf25f7ab87e12ad6626ac1119cea6cad2":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,1,0,229],
@@ -248,6 +249,5 @@ var NAVTREEINDEX82 =
 "group__CMSIS__Core__SysTickFunctions.html#gaf9d6aa7cfea4fbd87e0083b9d9ba93d2":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,50],
 "group__CMSIS__Core__SysTickFunctions.html#gaf9d6aa7cfea4fbd87e0083b9d9ba93d2":[3,1,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,50],
 "group__CMSIS__Core__SysTickFunctions.html#gaf9d6aa7cfea4fbd87e0083b9d9ba93d2":[3,1,0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,50],
-"group__CMSIS__Core__SysTickFunctions.html#gaf9d6aa7cfea4fbd87e0083b9d9ba93d2":[3,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,50],
-"group__CMSIS__Core__SysTickFunctions.html#gaf9d6aa7cfea4fbd87e0083b9d9ba93d2":[3,1,0,0,0,1,0,0,0,0,0,0,1,0,1,0,50]
+"group__CMSIS__Core__SysTickFunctions.html#gaf9d6aa7cfea4fbd87e0083b9d9ba93d2":[3,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,50]
 };

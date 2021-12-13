@@ -1,5 +1,6 @@
 var NAVTREEINDEX16 =
 {
+"group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[3,1,0,0,0,1,0,0,0,0,113],
 "group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[3,1,0,0,0,1,0,0,0,0,116],
 "group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[3,1,0,0,0,1,0,0,0,0,115],
 "group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[3,1,0,0,0,1,0,0,0,0,117],
@@ -39,8 +40,8 @@ var NAVTREEINDEX16 =
 "group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[5,0,0,1,0,1,14,45],
 "group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[5,0,0,1,0,1,15,47],
 "group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[3,1,0,0,0,0,1,0,0,1,0,113],
-"group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[3,1,0,0,0,0,1,0,0,1,0,115],
 "group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[3,1,0,0,0,0,1,0,0,1,0,114],
+"group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[3,1,0,0,0,0,1,0,0,1,0,115],
 "group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[3,1,0,0,0,0,1,0,0,1,0,117],
 "group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[3,1,0,0,0,0,1,0,0,1,0,112],
 "group__CMSIS__CoreDebug.html#ga9ae10710684e14a1a534e785ef390e1b":[3,1,0,0,0,0,1,0,0,1,0,116],
@@ -99,11 +100,11 @@ var NAVTREEINDEX16 =
 "group__CMSIS__CoreDebug.html#ga9d29546aefe3ca8662a7fe48dd4a5b2b":[3,1,0,0,0,0,1,0,0,1,0,134],
 "group__CMSIS__CoreDebug.html#ga9d29546aefe3ca8662a7fe48dd4a5b2b":[3,1,0,0,0,0,1,0,0,1,0,135],
 "group__CMSIS__CoreDebug.html#ga9d29546aefe3ca8662a7fe48dd4a5b2b":[5,0,0,1,0,1,17,45],
-"group__CMSIS__CoreDebug.html#ga9f881ade3151a73bc5b02b73fe6473ca":[3,1,0,0,0,1,0,1,0,0,1,0,326],
+"group__CMSIS__CoreDebug.html#ga9f881ade3151a73bc5b02b73fe6473ca":[3,1,0,0,0,1,0,1,0,0,1,0,330],
 "group__CMSIS__CoreDebug.html#ga9f881ade3151a73bc5b02b73fe6473ca":[3,1,0,0,0,1,0,1,0,0,1,0,329],
 "group__CMSIS__CoreDebug.html#ga9f881ade3151a73bc5b02b73fe6473ca":[3,1,0,0,0,1,0,1,0,0,1,0,332],
+"group__CMSIS__CoreDebug.html#ga9f881ade3151a73bc5b02b73fe6473ca":[3,1,0,0,0,1,0,1,0,0,1,0,326],
 "group__CMSIS__CoreDebug.html#ga9f881ade3151a73bc5b02b73fe6473ca":[3,1,0,0,0,1,0,1,0,0,1,0,331],
-"group__CMSIS__CoreDebug.html#ga9f881ade3151a73bc5b02b73fe6473ca":[3,1,0,0,0,1,0,1,0,0,1,0,330],
 "group__CMSIS__CoreDebug.html#ga9f881ade3151a73bc5b02b73fe6473ca":[3,1,0,0,0,0,1,0,0,1,0,326],
 "group__CMSIS__CoreDebug.html#ga9f881ade3151a73bc5b02b73fe6473ca":[3,1,0,0,0,0,1,0,0,1,0,327],
 "group__CMSIS__CoreDebug.html#ga9f881ade3151a73bc5b02b73fe6473ca":[3,1,0,0,0,0,1,0,0,1,0,328],
@@ -237,8 +238,8 @@ var NAVTREEINDEX16 =
 "group__CMSIS__CoreDebug.html#ga9fcf09666f7063a7303117aa32a85d5a":[5,0,0,1,0,1,17,50],
 "group__CMSIS__CoreDebug.html#ga9fcf09666f7063a7303117aa32a85d5a":[3,1,0,0,0,0,1,0,0,1,0,162],
 "group__CMSIS__CoreDebug.html#ga9fcf09666f7063a7303117aa32a85d5a":[3,1,0,0,0,0,1,0,0,1,0,163],
-"group__CMSIS__CoreDebug.html#ga9fcf09666f7063a7303117aa32a85d5a":[3,1,0,0,0,0,1,0,0,1,0,164],
 "group__CMSIS__CoreDebug.html#ga9fcf09666f7063a7303117aa32a85d5a":[3,1,0,0,0,0,1,0,0,1,0,165],
+"group__CMSIS__CoreDebug.html#ga9fcf09666f7063a7303117aa32a85d5a":[3,1,0,0,0,0,1,0,0,1,0,164],
 "group__CMSIS__CoreDebug.html#ga9fcf09666f7063a7303117aa32a85d5a":[3,1,0,0,0,0,1,0,0,1,0,166],
 "group__CMSIS__CoreDebug.html#ga9fcf09666f7063a7303117aa32a85d5a":[3,1,0,0,0,0,1,0,0,1,0,167],
 "group__CMSIS__CoreDebug.html#ga9fcf09666f7063a7303117aa32a85d5a":[3,1,0,0,0,0,1,0,0,1,0,169],
@@ -248,6 +249,5 @@ var NAVTREEINDEX16 =
 "group__CMSIS__CoreDebug.html#gaa043fd13768d57be320c682ca1c9b234":[3,1,0,0,0,1,0,1,0,0,1,0,21],
 "group__CMSIS__CoreDebug.html#gaa043fd13768d57be320c682ca1c9b234":[3,1,0,0,0,1,0,1,0,0,1,0,18],
 "group__CMSIS__CoreDebug.html#gaa043fd13768d57be320c682ca1c9b234":[3,1,0,0,0,1,0,0,0,0,18],
-"group__CMSIS__CoreDebug.html#gaa043fd13768d57be320c682ca1c9b234":[3,1,0,0,0,1,0,0,0,0,20],
-"group__CMSIS__CoreDebug.html#gaa043fd13768d57be320c682ca1c9b234":[3,1,0,0,0,1,0,0,0,0,21]
+"group__CMSIS__CoreDebug.html#gaa043fd13768d57be320c682ca1c9b234":[3,1,0,0,0,1,0,0,0,0,20]
 };

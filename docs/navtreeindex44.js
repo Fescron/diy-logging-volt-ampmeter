@@ -1,5 +1,7 @@
 var NAVTREEINDEX44 =
 {
+"group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,164],
+"group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,165],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,166],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,167],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,0,0,0,0,0,0,1,168],
@@ -45,6 +47,8 @@ var NAVTREEINDEX44 =
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,0,0,0,0,0,1,173],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,0,0,0,0,0,1,172],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,0,0,0,0,0,1,174],
+"group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[5,0,0,1,0,1,13,296],
+"group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[5,0,0,1,0,1,11,123],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,0,0,1,0,0,0,0,1,163],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,0,0,1,0,0,0,0,1,164],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,0,0,1,0,0,0,0,1,165],
@@ -141,6 +145,7 @@ var NAVTREEINDEX44 =
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,1,0,0,0,0,0,0,1,172],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,1,0,0,0,0,0,0,1,173],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,1,0,0,0,0,0,0,1,174],
+"group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[5,0,0,1,0,1,16,40],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,1,0,0,0,0,0,1,163],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,1,0,0,0,0,0,1,164],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,1,0,1,0,0,0,0,0,1,165],
@@ -158,11 +163,7 @@ var NAVTREEINDEX44 =
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[5,0,0,1,0,1,8,42],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[5,0,0,1,0,1,9,44],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[5,0,0,1,0,1,10,42],
-"group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[5,0,0,1,0,1,16,40],
-"group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[5,0,0,1,0,1,11,123],
-"group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[5,0,0,1,0,1,12,201],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[5,0,0,1,0,1,17,201],
-"group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[5,0,0,1,0,1,13,296],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,0,1,0,0,1,0,0,0,1,163],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,0,1,0,0,1,0,0,0,1,164],
 "group__CMSIS__Core__NVICFunctions.html#gaf59b9d0a791d2157abb319753953eceb":[3,1,0,0,0,0,1,0,0,1,0,0,0,1,167],
@@ -248,6 +249,5 @@ var NAVTREEINDEX44 =
 "group__CMSIS__Core__RegAccFunctions.html#ga200ad037cde04b8fde4fa365e87b365b":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,0,10],
 "group__CMSIS__Core__RegAccFunctions.html#ga34c9673a9c8ea13960a6af6603966784":[3,1,0,0,0,0,1,0,0,0,0,0,0,0,12],
 "group__CMSIS__Core__RegAccFunctions.html#ga34c9673a9c8ea13960a6af6603966784":[3,1,0,0,0,1,0,0,0,0,0,0,0,0,12],
-"group__CMSIS__Core__RegAccFunctions.html#ga34c9673a9c8ea13960a6af6603966784":[3,1,0,0,0,0,0,0,0,0,0,0,0,12],
-"group__CMSIS__Core__RegAccFunctions.html#ga34c9673a9c8ea13960a6af6603966784":[3,1,0,0,0,1,0,0,0,1,0,0,0,0,0,12]
+"group__CMSIS__Core__RegAccFunctions.html#ga34c9673a9c8ea13960a6af6603966784":[3,1,0,0,0,0,0,0,0,0,0,0,0,12]
 };

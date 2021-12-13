@@ -1,5 +1,6 @@
 var NAVTREEINDEX58 =
 {
+"group__CMSIS__Core__SysTickFunctions.html#ga463332f8c2def1dda1bffa84f68cfb85":[3,1,0,0,0,0,0,0,0,0,0,1,0,1,0,98],
 "group__CMSIS__Core__SysTickFunctions.html#ga463332f8c2def1dda1bffa84f68cfb85":[3,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,98],
 "group__CMSIS__Core__SysTickFunctions.html#ga463332f8c2def1dda1bffa84f68cfb85":[3,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,98],
 "group__CMSIS__Core__SysTickFunctions.html#ga463332f8c2def1dda1bffa84f68cfb85":[3,1,0,0,0,0,1,0,0,0,0,0,1,0,1,0,98],
@@ -248,6 +249,5 @@ var NAVTREEINDEX58 =
 "group__CMSIS__Core__SysTickFunctions.html#ga49410cfc8dbbf49e4e4ac83aaeb7ba0c":[3,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,15],
 "group__CMSIS__Core__SysTickFunctions.html#ga49410cfc8dbbf49e4e4ac83aaeb7ba0c":[3,1,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,15],
 "group__CMSIS__Core__SysTickFunctions.html#ga49410cfc8dbbf49e4e4ac83aaeb7ba0c":[3,1,0,0,0,0,1,0,0,1,0,0,0,1,0,1,0,15],
-"group__CMSIS__Core__SysTickFunctions.html#ga49410cfc8dbbf49e4e4ac83aaeb7ba0c":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,15],
-"group__CMSIS__Core__SysTickFunctions.html#ga49410cfc8dbbf49e4e4ac83aaeb7ba0c":[3,1,0,0,0,0,0,0,0,0,0,1,0,0,0,15]
+"group__CMSIS__Core__SysTickFunctions.html#ga49410cfc8dbbf49e4e4ac83aaeb7ba0c":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,15]
 };

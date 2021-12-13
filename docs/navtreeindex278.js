@@ -1,5 +1,6 @@
 var NAVTREEINDEX278 =
 {
+"structTIM__TypeDef.html#a6b1ae85138ed91686bf63699c61ef835":[3,83,1,2,22,11],
 "structTIM__TypeDef.html#a6fdd2a7fb88d28670b472aaac0d9d262":[3,83,1,2,22,9],
 "structTIM__TypeDef.html#a7efe9ea8067044cac449ada756ebc2d1":[3,83,1,2,22,12],
 "structTIM__TypeDef.html#a9dafc8b03e8497203a8bb395db865328":[3,83,1,2,22,10],
@@ -11,10 +12,10 @@ var NAVTREEINDEX278 =
 "structTIM__TypeDef.html#ad432e2a315abf68e6c295fb4ebc37534":[3,83,1,2,22,18],
 "structTIM__TypeDef.html#ad7271cc1eec9ef16e4ee5401626c0b3b":[3,83,1,2,22,2],
 "structTIM__TypeDef.html#afb7114ac49dba07ba5d250c507dbf23d":[3,83,1,2,22,14],
-"structTPI__Type.html":[3,1,0,0,0,1,0,1,0,0,2],
 "structTPI__Type.html":[3,1,0,0,0,1,0,0,0,2],
-"structTPI__Type.html":[3,1,0,0,0,0,1,0,0,2],
 "structTPI__Type.html":[3,1,0,0,0,0,0,0,2],
+"structTPI__Type.html":[3,1,0,0,0,0,1,0,0,2],
+"structTPI__Type.html":[3,1,0,0,0,1,0,1,0,0,2],
 "structUSART__TypeDef.html":[3,83,1,2,23],
 "structUSART__TypeDef.html#a1db25b74d47af33dc4f4fe2177fc5da0":[3,83,1,2,23,4],
 "structUSART__TypeDef.html#a6d7dcd3972a162627bc3470cbf992ec4":[3,83,1,2,23,1],

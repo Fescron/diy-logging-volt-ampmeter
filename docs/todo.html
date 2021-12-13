@@ -83,24 +83,19 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dt>File <a class="el" href="main_8c.html">main.c</a>  </dt>
 <dd><p class="startdd"><a class="anchor" id="_todo000003"></a> <b>Things to do in the near future:</b><br  />
 </p><ul>
-<li>Make sure to not save values if no valid measurements were received.<ul>
-<li>Fix max/min value logic.</li>
-</ul>
-</li>
 <li>Check Ah/Wh calculations.</li>
 <li>Check if the power/Ah/Wh calculations are done using wrong/old measurements.</li>
 <li>Handle uint32_t wraparound for time between calculations measurements and waiting time.</li>
-<li>Compare floats more reliably.</li>
 <li>Don't send/do certain functions if one of the meters is powered down.</li>
 </ul>
 <p class="enddd"><a class="anchor" id="_todo000004"></a> <b>Long-term future improvements:</b><br  />
 </p><ul>
+<li>Add function to stop measurements when the voltage/current is (above/) below a certain value.</li>
 <li>Add external temperature reading functionality.</li>
 <li>Add internal temperature reading functionality (<code><a class="el" href="adc_8h.html#acccd58aa70215a6b184ad242312ffd0c">MX_ADC1_Init()</a>;</code>).</li>
 <li>Add interrupt-logging functionality.</li>
 <li>Add relay-opening functionality.</li>
 <li>Add "manual measurement-mode" to log on up-button press.</li>
-<li>Add function to stop measurements when the voltage/current is (above/) below a certain value.</li>
 <li>Add "performance-mode" with no display refreshes.<ul>
 <li>(sub-page on right display, start/stop with up, beeps for confirmation)</li>
 </ul>
@@ -136,13 +131,12 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <dt>File <a class="el" href="usart_8c.html">usart.c</a>  </dt>
 <dd><a class="anchor" id="_todo000006"></a> <b>Future improvements:</b><br  />
 <ul>
-<li>Increase baudrate for USART2/3 communication?</li>
-<li>Add separate USART1 handler? (<code><a class="el" href="usart_8h.html#a2b6c9c0a52a17fdc738fb0e45eda312f" title="This function monitors USART1/2/3 buffer filling indication and moves data around accordingly.">USART_HandleContinuousReception()</a>;</code>)</li>
 <li>Add overflow catch if data.voltage/current are negative values?<ul>
-<li><code>data.current &gt; 9.9999</code>, <code>data.voltage &gt; 99.999</code></li>
+<li><code>data.current &gt; 9.9999</code>, <code>data.voltage &gt; 99.999</code> (these checks are as of v1.1 of this file unnecessary...)</li>
 </ul>
 </li>
-<li>Compare floats more reliably.</li>
+<li>Increase baudrate for USART2/3 communication?</li>
+<li>Add separate USART1 handler? (<code><a class="el" href="usart_8h.html#a2b6c9c0a52a17fdc738fb0e45eda312f" title="This function monitors USART1/2/3 buffer filling indication and moves data around accordingly.">USART_HandleContinuousReception()</a>;</code>)</li>
 <li>Check if we really did receive the openLog startup-message <code>12&lt;</code>.</li>
 </ul>
 </dd>
@@ -153,7 +147,7 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Dec 12 2021 23:20:40 for DIY Logging Volt/Ampmeter by
+    <li class="footer">Generated on Mon Dec 13 2021 16:18:50 for DIY Logging Volt/Ampmeter by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>
   </ul>

@@ -1,5 +1,6 @@
 var NAVTREEINDEX127 =
 {
+"group__CMSIS__core__DebugFunctions.html#ga01365fceab80a0f2e11216af37cbebab":[3,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,65],
 "group__CMSIS__core__DebugFunctions.html#ga01365fceab80a0f2e11216af37cbebab":[3,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,0,65],
 "group__CMSIS__core__DebugFunctions.html#ga01365fceab80a0f2e11216af37cbebab":[3,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,65],
 "group__CMSIS__core__DebugFunctions.html#ga01365fceab80a0f2e11216af37cbebab":[3,1,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,65],
@@ -16,6 +17,7 @@ var NAVTREEINDEX127 =
 "group__CMSIS__core__DebugFunctions.html#ga01365fceab80a0f2e11216af37cbebab":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,0,65],
 "group__CMSIS__core__DebugFunctions.html#ga01365fceab80a0f2e11216af37cbebab":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,1,0,0,65],
 "group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,0,96],
+"group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,0,1,0,1,16],
 "group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0,0,96],
 "group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,0,0,1,16],
 "group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,1,0,1,0,1,16],
@@ -46,7 +48,6 @@ var NAVTREEINDEX127 =
 "group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,0,96],
 "group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,96],
 "group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,96],
-"group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,0,1,0,1,16],
 "group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,0,96],
 "group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,0,1,0,0,1,0,0,0,1,0,1,0,0,96],
 "group__CMSIS__core__DebugFunctions.html#ga0170c14ec33b54f969982f52c693f381":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,1,0,0,96],
@@ -84,6 +85,7 @@ var NAVTREEINDEX127 =
 "group__CMSIS__core__DebugFunctions.html#ga029349786e50a758730aff3fa620695e":[3,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,195],
 "group__CMSIS__core__DebugFunctions.html#ga029349786e50a758730aff3fa620695e":[3,1,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,0,195],
 "group__CMSIS__core__DebugFunctions.html#ga029349786e50a758730aff3fa620695e":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,0,195],
+"group__CMSIS__core__DebugFunctions.html#ga02f64f753b8be6befc53755cb650e68b":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,0,149],
 "group__CMSIS__core__DebugFunctions.html#ga02f64f753b8be6befc53755cb650e68b":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0,0,149],
 "group__CMSIS__core__DebugFunctions.html#ga02f64f753b8be6befc53755cb650e68b":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,0,149],
 "group__CMSIS__core__DebugFunctions.html#ga02f64f753b8be6befc53755cb650e68b":[3,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,149],
@@ -104,7 +106,6 @@ var NAVTREEINDEX127 =
 "group__CMSIS__core__DebugFunctions.html#ga02f64f753b8be6befc53755cb650e68b":[3,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,149],
 "group__CMSIS__core__DebugFunctions.html#ga02f64f753b8be6befc53755cb650e68b":[3,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,0,149],
 "group__CMSIS__core__DebugFunctions.html#ga02f64f753b8be6befc53755cb650e68b":[3,1,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,149],
-"group__CMSIS__core__DebugFunctions.html#ga02f64f753b8be6befc53755cb650e68b":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,0,149],
 "group__CMSIS__core__DebugFunctions.html#ga02f64f753b8be6befc53755cb650e68b":[3,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,149],
 "group__CMSIS__core__DebugFunctions.html#ga02f64f753b8be6befc53755cb650e68b":[3,1,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,149],
 "group__CMSIS__core__DebugFunctions.html#ga02f64f753b8be6befc53755cb650e68b":[3,1,0,0,0,0,1,0,0,1,0,0,0,0,1,0,1,0,0,149],
@@ -214,10 +215,10 @@ var NAVTREEINDEX127 =
 "group__CMSIS__core__DebugFunctions.html#ga08be58ee1c46d8c2bd6a7bebbc257c43":[3,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,154],
 "group__CMSIS__core__DebugFunctions.html#ga08be58ee1c46d8c2bd6a7bebbc257c43":[3,1,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,0,154],
 "group__CMSIS__core__DebugFunctions.html#ga08be58ee1c46d8c2bd6a7bebbc257c43":[3,1,0,0,0,0,1,0,0,1,0,0,0,1,0,1,0,0,154],
+"group__CMSIS__core__DebugFunctions.html#ga08be58ee1c46d8c2bd6a7bebbc257c43":[3,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,154],
 "group__CMSIS__core__DebugFunctions.html#ga08be58ee1c46d8c2bd6a7bebbc257c43":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,0,154],
 "group__CMSIS__core__DebugFunctions.html#ga08be58ee1c46d8c2bd6a7bebbc257c43":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,1,0,0,154],
 "group__CMSIS__core__DebugFunctions.html#ga08be58ee1c46d8c2bd6a7bebbc257c43":[3,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,154],
-"group__CMSIS__core__DebugFunctions.html#ga08be58ee1c46d8c2bd6a7bebbc257c43":[3,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,154],
 "group__CMSIS__core__DebugFunctions.html#ga08d18856d9142b372dbb6b2723467c4e":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,0,289],
 "group__CMSIS__core__DebugFunctions.html#ga08d18856d9142b372dbb6b2723467c4e":[3,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,289],
 "group__CMSIS__core__DebugFunctions.html#ga08d18856d9142b372dbb6b2723467c4e":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,1,0,1,0,0,289],
@@ -248,6 +249,5 @@ var NAVTREEINDEX127 =
 "group__CMSIS__core__DebugFunctions.html#ga08d18856d9142b372dbb6b2723467c4e":[3,1,0,0,0,1,0,1,0,0,0,0,0,1,0,1,0,0,289],
 "group__CMSIS__core__DebugFunctions.html#ga08d18856d9142b372dbb6b2723467c4e":[3,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,289],
 "group__CMSIS__core__DebugFunctions.html#ga08d18856d9142b372dbb6b2723467c4e":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,0,0,0,289],
-"group__CMSIS__core__DebugFunctions.html#ga08d18856d9142b372dbb6b2723467c4e":[3,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,289],
-"group__CMSIS__core__DebugFunctions.html#ga08d18856d9142b372dbb6b2723467c4e":[3,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,0,1,0,0,289]
+"group__CMSIS__core__DebugFunctions.html#ga08d18856d9142b372dbb6b2723467c4e":[3,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,289]
 };
