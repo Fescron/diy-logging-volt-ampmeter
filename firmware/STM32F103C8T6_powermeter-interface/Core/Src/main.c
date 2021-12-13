@@ -9,7 +9,7 @@
  *   them to displays and sends them (with time/date values) to a UART port so
  *   a Sparkfun OpenLog can log these measurements to a `.TXT` file, which can
  *   eventually be renamed to a `.CSV` so the measurements can be easily plotted.
- * @version 1.1
+ * @version 1.2
  * @author Brecht Van Eeckhoudt
  *
  * ******************************************************************************
@@ -18,27 +18,25 @@
  *
  *   @li v1.0: Initial version.
  *   @li v1.1: Started printing date before time for each measurement-line, removed day-writing in footer.
+ *   @li v1.2: Compared power floats more reliably.
  *
  * ******************************************************************************
  *
  * @todo
  *   **Things to do in the near future:**@n
- *     - Make sure to not save values if no valid measurements were received.
- *        - Fix max/min value logic.
  *     - Check Ah/Wh calculations.
  *     - Check if the power/Ah/Wh calculations are done using wrong/old measurements.
  *     - Handle uint32_t wraparound for time between calculations measurements and waiting time.
- *     - Compare floats more reliably.
  *     - Don't send/do certain functions if one of the meters is powered down.
  *
  * @todo
  *   **Long-term future improvements:**@n
+ *     - Add function to stop measurements when the voltage/current is (above/) below a certain value.
  *     - Add external temperature reading functionality.
  *     - Add internal temperature reading functionality (`MX_ADC1_Init();`).
  *     - Add interrupt-logging functionality.
  *     - Add relay-opening functionality.
  *     - Add "manual measurement-mode" to log on up-button press.
- *     - Add function to stop measurements when the voltage/current is (above/) below a certain value.
  *     - Add "performance-mode" with no display refreshes.
  *        - (sub-page on right display, start/stop with up, beeps for confirmation)
  *     - Add low-battery beeping.
@@ -326,7 +324,11 @@ int main(void)
 		  data.power = data.voltage * data.current;
 		  if (data.power > 999.999) data.power = 999.999;
 
-		  if (data.oldPower != data.power)
+		  /* Convert floats to uint32_t (power has 3 decimal places: *1000) */
+		  uint32_t oldPower = FLOAT_TO_INT(data.oldPower*1000);
+		  uint32_t power = FLOAT_TO_INT(data.power*1000);
+
+		  if (oldPower != power)
 		  {
 			  data.oldPower = data.power;
 			  data.newPow = 1;

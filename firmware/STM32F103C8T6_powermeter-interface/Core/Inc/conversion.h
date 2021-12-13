@@ -44,6 +44,9 @@
 
 /* Public definitions */
 
+/** Rounding macro */
+#define FLOAT_TO_INT(x) ((x)>=0?(uint32_t)((x)+0.5):(uint32_t)((x)-0.5))
+
 /** Struct to store the gathered measurements */
 extern struct Data_t
 {

@@ -1,7 +1,7 @@
 /***************************************************************************//**
  * @file usart.c
  * @brief U(S)ART functionality for high-precision logging voltage/current meter.
- * @version 1.0
+ * @version 1.1
  * @author Brecht Van Eeckhoudt
  *
  * ******************************************************************************
@@ -9,16 +9,16 @@
  * @section Versions
  *
  *   @li v1.0: Initial version.
+ *   @li v1.1: Compared floats more reliably (and faster?) and implemented data-check to hopefully fix max/min logic.
  *
  * ******************************************************************************
  *
  * @todo
  *   **Future improvements:**@n
+ *     - Add overflow catch if data.voltage/current are negative values?
+ *        - `data.current > 9.9999`, `data.voltage > 99.999` (these checks are as of v1.1 of this file unnecessary...)
  *     - Increase baudrate for USART2/3 communication?
  *     - Add separate USART1 handler? (`USART_HandleContinuousReception();`)
- *     - Add overflow catch if data.voltage/current are negative values?
- *        - `data.current > 9.9999`, `data.voltage > 99.999`
- *     - Compare floats more reliably.
  *     - Check if we really did receive the openLog startup-message `12<`.
  *
  * ******************************************************************************
@@ -129,36 +129,56 @@ void USART_HandleContinuousReception(void)
 	/* Checks if USART2 Buffer full indication has been set */
 	if (uwBufferReadyIndication_USART2 != 0)
 	{
-		data.voltage = bytes_to_float(pBufferReadyForUser_USART2[6], pBufferReadyForUser_USART2[5], pBufferReadyForUser_USART2[4], pBufferReadyForUser_USART2[3]);
+		/** Format of the data coming from the meters:
+		 *   - Byte 0     = 0xFA
+		 *   - Byte 1     = 0xFB
+		 *   - Byte 2     = Device address (default: 0x00)
+		 *   - Byte 3 - 6 = Measurement (~float value)
+		 *   - Byte 7     = CRC check (SUM of bytes 3 - 6)
+		 */
 
-		if (data.voltage < 99.999) /* Meter reads max 50V ... */
+		uint8_t checksum = pBufferReadyForUser_USART2[3] + pBufferReadyForUser_USART2[4] + pBufferReadyForUser_USART2[5] + pBufferReadyForUser_USART2[6];
+
+		/* Only use the bytes if the data is valid */
+		if ((pBufferReadyForUser_USART2[0] == 0xFA) && (pBufferReadyForUser_USART2[1] == 0xFB) && (pBufferReadyForUser_USART2[7] == checksum))
 		{
-			if (data.oldVolt != data.voltage)
-			{
-			  data.oldVolt = data.voltage;
-			  data.newVolt = 1;
-			}
+			data.voltage = bytes_to_float(pBufferReadyForUser_USART2[6], pBufferReadyForUser_USART2[5], pBufferReadyForUser_USART2[4], pBufferReadyForUser_USART2[3]);
 
-			/* Update min/max fields if necessary */
-			if (data.voltage < data.minVoltage)
+			if (data.voltage < 99.999) /* Meter reads max 50V ... */
 			{
-				data.minVoltage = data.voltage;
-				data.newMinVolt = 1;
-			}
-			else if (data.firstVolt)
-			{
-				data.minVoltage = data.voltage;
-				data.newMinVolt = 1;
-				data.firstVolt = 0;
-			}
+				/* Convert floats to uint16_t (voltage has 3 decimal places: *1000) */
+				uint16_t oldVolt = FLOAT_TO_INT(data.oldVolt*1000);
+				uint16_t voltage = FLOAT_TO_INT(data.voltage*1000);
+				uint16_t minVoltage = FLOAT_TO_INT(data.minVoltage*1000);
+				uint16_t maxVoltage = FLOAT_TO_INT(data.maxVoltage*1000);
 
-			if (data.voltage > data.maxVoltage)
-			{
-				data.maxVoltage = data.voltage;
-				data.newMaxVolt = 1;
-			}
+				if (oldVolt != voltage)
+				{
+				  data.oldVolt = data.voltage;
+				  data.newVolt = 1;
+				}
 
-			data.voltReceived = 1;
+				/* Update min/max fields if necessary */
+				if (voltage < minVoltage)
+				{
+					data.minVoltage = data.voltage;
+					data.newMinVolt = 1;
+				}
+				else if (data.firstVolt)
+				{
+					data.minVoltage = data.voltage;
+					data.newMinVolt = 1;
+					data.firstVolt = 0;
+				}
+
+				if (voltage > maxVoltage)
+				{
+					data.maxVoltage = data.voltage;
+					data.newMaxVolt = 1;
+				}
+
+				data.voltReceived = 1;
+			}
 		}
 
 		/* Reset USART2 indication */
@@ -169,39 +189,59 @@ void USART_HandleContinuousReception(void)
 	/* Checks if USART3 Buffer full indication has been set */
 	if (uwBufferReadyIndication_USART3 != 0)
 	{
-		data.current = bytes_to_float(pBufferReadyForUser_USART3[6], pBufferReadyForUser_USART3[5], pBufferReadyForUser_USART3[4], pBufferReadyForUser_USART3[3]);
+		/** Format of the data coming from the meters:
+		 *   - Byte 0     = 0xFA
+		 *   - Byte 1     = 0xFB
+		 *   - Byte 2     = Device address (default: 0x00)
+		 *   - Byte 3 - 6 = Measurement (~float value)
+		 *   - Byte 7     = CRC check (SUM of bytes 3 - 6)
+		 */
 
-		if (data.current < 9.9999) /* Meter reads max 5A ... */
+		uint8_t checksum = pBufferReadyForUser_USART3[3] + pBufferReadyForUser_USART3[4] + pBufferReadyForUser_USART3[5] + pBufferReadyForUser_USART3[6];
+
+		/* Only use the bytes if the data is valid */
+		if ((pBufferReadyForUser_USART3[0] == 0xFA) && (pBufferReadyForUser_USART3[1] == 0xFB) && (pBufferReadyForUser_USART3[7] == checksum))
 		{
-			if (data.oldCurr != data.current)
-			{
-			  data.oldCurr = data.current;
-			  data.newCurr = 1;
-			}
+			data.current = bytes_to_float(pBufferReadyForUser_USART3[6], pBufferReadyForUser_USART3[5], pBufferReadyForUser_USART3[4], pBufferReadyForUser_USART3[3]);
 
-			/* Update min/max fields if necessary */
-			if (data.current < data.minCurrent)
+			if (data.current < 9.9999) /* Meter reads max 5A ... */
 			{
-				data.minCurrent = data.current;
-				data.newMinCurr = 1;
-			}
-			else if (data.firstCurr)
-			{
-				data.minCurrent = data.current;
-				data.newMinCurr = 1;
-				data.firstCurr = 0;
-			}
+				/* Convert floats to uint16_t (current has 4 decimal places: *10000) */
+				uint16_t oldCurr = FLOAT_TO_INT(data.oldCurr*10000);
+				uint16_t current = FLOAT_TO_INT(data.current*10000);
+				uint16_t minCurrent = FLOAT_TO_INT(data.minCurrent*10000);
+				uint16_t maxCurrent = FLOAT_TO_INT(data.maxCurrent*10000);
 
-			if (data.current > data.maxCurrent)
-			{
-				data.maxCurrent = data.current;
-				data.newMaxCurr = 1;
-			}
+				if (oldCurr != current)
+				{
+				  data.oldCurr = data.current;
+				  data.newCurr = 1;
+				}
 
-			data.currReceived = 1;
+				/* Update min/max fields if necessary */
+				if (current < minCurrent)
+				{
+					data.minCurrent = data.current;
+					data.newMinCurr = 1;
+				}
+				else if (data.firstCurr)
+				{
+					data.minCurrent = data.current;
+					data.newMinCurr = 1;
+					data.firstCurr = 0;
+				}
+
+				if (current > maxCurrent)
+				{
+					data.maxCurrent = data.current;
+					data.newMaxCurr = 1;
+				}
+
+				data.currReceived = 1;
+			}
 		}
 
-		/* Reset USART13indication */
+		/* Reset USART3indication */
 		uwBufferReadyIndication_USART3 = 0;
 	}
 
@@ -210,7 +250,11 @@ void USART_HandleContinuousReception(void)
 	{
 		data.voltage = 0.0;
 
-		if (data.oldVolt != data.voltage)
+		/* Convert floats to uint16_t (voltage has 3 decimal places: *1000) */
+		uint16_t oldVolt = FLOAT_TO_INT(data.oldVolt*1000);
+		uint16_t voltage = FLOAT_TO_INT(data.voltage*1000);
+
+		if (oldVolt != voltage)
 		{
 		  data.oldVolt = data.voltage;
 		  data.newVolt = 1;
@@ -224,7 +268,11 @@ void USART_HandleContinuousReception(void)
 	{
 		data.current = 0.0;
 
-		if (data.oldCurr != data.current)
+		/* Convert floats to uint16_t (current has 4 decimal places: *10000) */
+		uint16_t oldCurr = FLOAT_TO_INT(data.oldCurr*10000);
+		uint16_t current = FLOAT_TO_INT(data.current*10000);
+
+		if (oldCurr != current)
 		{
 		  data.oldCurr = data.current;
 		  data.newCurr = 1;
