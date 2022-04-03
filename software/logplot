@@ -8,20 +8,21 @@
 #                                                                    #
 #   USAGE: see "logplot -h"                                          #
 #                                                                    #
-# Brecht Van Eeckhoudt - 10/12/2021 (development started 03/12/2021) #
+# Brecht Van Eeckhoudt - 14/02/2022 (development started 03/12/2021) #
 # Initially written on Ubuntu 20.04                                  #
 # ================================================================== #
 
 # Version of this script (date)
-VERSION="10/12/2021"
+VERSION="14/02/2022"
+
+# TODO add argument to plot voltage and power ( -voltpow )
+# TODO add argument to set xrange with minutes
 
 # TODO add argument to change some axes to logaritmic ones ( set logscale (x|y|y2) )
 # TODO add argument to remove seconds from x-axis
-# TODO add arguments to set xrange with minutes/hours?
 # TODO add arguments to add labels/arrows
 # TODO add argument to plot in a window/to a PNG instead of to a PDF
 # TODO add argument to enable boxes with values on the lines
-# TODO add arguments to plot power vs ... (or use multiplot?)
 
 # Print help menu if no arguments are given when calling the script
 if [[ $# -eq 0 ]]; then 
@@ -49,7 +50,7 @@ do
 		echo " -t <title>     : Set graph title (subscript: \"A_{BC}\", superscript: \"A^{BC}\")"
 		echo " -st <subtitle> : Set graph subtitle"
 		echo " -ndt           : Don't print date and time of first measurement above graph (no datetime)"
-		echo " -nr            : Don't print total runtime above graph (no runtime)"
+		echo " -nrt           : Don't print total runtime above graph (no runtime)"
 		echo " -av            : Print capacity and max/min voltage/current values above graph (all values)"
 		echo " -c             : Print capacity values above graph"
 		echo " -mv            : Print max/min voltage values above graph"
@@ -65,6 +66,7 @@ do
 		echo " -pow           : Only plot power over (run)time"
 		echo " -ne            : Disable extension of the axis-ranges to the next tic-mark position"
 		echo " -e <text>      : Define extra text to add to the output-filename before the .pdf extension"
+		echo " -noFooter      : Footer is missing, use the last runtime-value-entry for the title and don't print capacity/min/max values"
 		echo -en "\e[0m"
 		CONTINUE='0' # Make sure no other code is executed
 	elif [[ ${!i} == '-f' ]]; then    # Set filename
@@ -78,7 +80,7 @@ do
 		SUBTITLE="${!j}"
 	elif [[ ${!i} == '-ndt' ]]; then  # Disable date and time above graph
 		NODATETIME='1'
-	elif [[ ${!i} == '-nr' ]]; then   # Disable runtime above graph
+	elif [[ ${!i} == '-nrt' ]]; then   # Disable runtime above graph
 		NORUNTIME='1'
 	elif [[ ${!i} == '-av' ]]; then   # Print capacity and max/min voltage/current values above graph
 		CAPACITY='1'
@@ -145,6 +147,8 @@ do
 	elif [[ ${!i} == '-e' ]]; then    # Set extra text before .pdf extension
 		j=$((i+1))
 		EXTRA="${!j}"
+	elif [[ ${!i} == '-noFooter' ]]; then # Footer is missing, use the last runtime-value-entry for the title and don't print capacity/min/max values
+		NOFOOTER='1'
 	fi
 done
 
@@ -179,8 +183,20 @@ if [[ $CONTINUE != '0' ]]; then
 		# "2q" will quit immediately when the line number is 2, "d" will delete the line instead of printing it; this is inhibited on the last line because the "q" causes the rest of the script to be skipped when quitting.
 	fi
 	
+	# Footer is missing, use the last runtime-value-entry for the title and don't print capacity/min/max values
+	if [[ $NOFOOTER == '1' ]]; then
+		[ ! -f "$FILE" ] && { echo "$FILE file not found"; exit 99; } # Quote marks so spaces can exist in the filepath
+		while read datetime runtime volt curr pow
+		do			
+			# Add runtime to title if required
+			if [[ $NORUNTIME != '1' ]]; then
+				if [[ -n "$TITLE" || -n "$SUBTITLE" || $NODATETIME != '1' ]]; then PLOTTITLE+="\n\n"; fi # Add two newlines if necessary
+				PLOTTITLE+="{/=12 Runtime [hh:mm:ss]: $runtime}"
+			fi
+		# Read the last line of the file (-n = quiet mode) and pass the output as a file to the while loop using process substitution ("<(...)") (quote marks so spaces can exist in the filepath)
+		done < <(tail -n -1 "$FILE")
 	# Gather info from the last line of the input-file to add to the title if necessary
-	if [[  $NORUNTIME != '1' || $CAPACITY == '1' || $MAXMINVOLT == '1' || $MAXMINCURR == '1' ]]; then
+	elif [[  $NORUNTIME != '1' || $CAPACITY == '1' || $MAXMINVOLT == '1' || $MAXMINCURR == '1' ]]; then
 		[ ! -f "$FILE" ] && { echo "$FILE file not found"; exit 99; } # Quote marks so spaces can exist in the filepath
 		while read runtime capAh capWh vMax vMin aMax aMin
 		do			
